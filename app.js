@@ -4,7 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//web
 var indexRouter = require('./routes/web/index');
+//api
+var apiUserRouter = require("./routes/api/users");
 
 var app = express();
 
@@ -18,7 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//web
 app.use('/', indexRouter);
+//api
+app.use('/api/users',apiUserRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
