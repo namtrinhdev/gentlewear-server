@@ -1,0 +1,40 @@
+<%- include('../inc/header.ejs') %>
+<!-- body -->
+<h2 class="text-center mt-1">Thêm user</h2>
+        <div class="container-md  rounded  p-3 mt-3">
+            <style>
+                .container-md {
+                    max-width: 500px;
+                    background-color: #d9d7d7;
+                }
+            </style>
+            <form action="" method="post">
+
+                <label for="exampleInputEmail1" class="form-label">Fullname</label>
+                <input id="txtFullname" class="form-control" name="fullname" type="text" maxWit="200px">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input id="txtFullname" class="form-control" name="email" type="email" maxWit="200px">
+                <label for="exampleInputEmail1" class="form-label">Password</label>
+                <input id="txtFullname" class="form-control" name="passwd" type="password" maxWit="200px">
+                <label for="exampleInputEmail1" class="form-label">Address</label>
+                <input id="txtFullname" class="form-control" name="diaChi" type="text" maxWit="200px">
+                <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                <input id="txtFullname" class="form-control" name="sdt" type="text" maxWit="200px">
+                <label for="exampleInputEmail1" class="form-label">Vai trò</label>
+                <select class="form-select" aria-label="Default select example" name="status">
+                    <option selected>Chọn vai trò</option>
+                    <option value="0" name="status">
+                        Quản trị viên</option>
+                    <option value="1" name="status">Người dùng</option>
+                </select>
+                <label for="exampleInputEmail1" class="form-label">Avatar</label>
+                <input id="txtFullname" class="form-control" name="avatar" type="text" maxWit="200px">
+
+                <label for="exampleInputEmail1" class="form-label fs-6 text-danger">
+                    <%=msg%>
+                </label><br />
+                <button type="submit"
+                    class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm</button>
+            </form>
+        </div>
+<%- include('../inc/footer.ejs') %>
