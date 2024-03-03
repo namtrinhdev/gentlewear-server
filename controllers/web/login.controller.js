@@ -9,7 +9,7 @@ exports.postLoginPage = async (req, res, next) => {
     let msg = '';
     if (req.body.email === 'admin@gmail.com' && req.body.passwd === 'admin') {
         msg = 'Đăng nhập thành công';
-        res.render('users/user', { msg: msg });
+        res.redirect('/users');
     } else {
         let objUser = await md.userModel.findOne({ email: req.body.email });
         if (objUser) {
@@ -19,7 +19,7 @@ exports.postLoginPage = async (req, res, next) => {
                 res.render('users/user', { msg: msg });
             } else {
                 msg = 'Email hoặc mật khẩu không đúng hoặc bạn không có quyền truy cập';
-                res.render('login', { msg: msg });
+                res.redirect('/users');
             }
         } else {
             msg = 'Email hoặc mật khẩu không đúng';
