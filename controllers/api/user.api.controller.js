@@ -12,7 +12,8 @@ exports.getAll = async (req, res) => {
 exports.checkLogin = async (req, res) => {
     let ObjRes = {
         status: 0,
-        data: []
+        data: [],
+        msg: ''
     }
     try {
         let passwd = req.body.passwd;
@@ -24,15 +25,18 @@ exports.checkLogin = async (req, res) => {
             if (isPasswdValid) {
                 // "Đăng nhập thành công"
                 ObjRes.status = 1;
+                ObjRes.msg = "Đăng nhập thành công"
                 res.status(200).json(ObjRes);
             } else {
                 // "Mật khẩu không chính xác"
+                ObjRes.msg = "Mật khẩu không chính xác"
                 ObjRes.status = 0;
                 res.status(200).json(ObjRes);
             }
         } else {
-            // "Username không tồn tại"
-            ObjRes.status = 0;
+            // "Email không tồn tại"
+                ObjRes.msg = "Email không tồn tại"
+                ObjRes.status = 0;
             res.status(403).json(ObjRes);
         }
     } catch (err) {
