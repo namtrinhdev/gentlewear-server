@@ -4,13 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//web
 var indexRouter = require('./routes/web/index');
+var usersRouter = require('./routes/web/users');
+//api
+var apiUserRouter = require("./routes/api/users.api");
+var apiProductRouter = require("./routes/api/products.api");
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -18,13 +23,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//web
 app.use('/', indexRouter);
+app.use('/users', usersRouter);
+//api
+app.use('/api/users',apiUserRouter);
+app.use('/api/products',apiProductRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
+ 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
