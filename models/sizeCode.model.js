@@ -1,6 +1,6 @@
 var { Schema, model } = require("mongoose");
 
-var sizeCodeSchema = new db.mongoose.Schema({
+var sizeCodeSchema = new Schema({
     sizeCode: { type: String, required: true }
 },  
 {

@@ -9,6 +9,7 @@ var indexRouter = require('./routes/web/index');
 var usersRouter = require('./routes/web/users');
 //api
 var apiUserRouter = require("./routes/api/users.api");
+var apiProductRouter = require("./routes/api/products.api");
 
 var app = express();
 
@@ -28,12 +29,13 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //api
 app.use('/api/users',apiUserRouter);
+app.use('/api/products',apiProductRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
+ 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

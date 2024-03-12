@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-var colorCodeSchema = new db.mongoose.Schema({
+var colorCodeSchema = new Schema({
     colorCode: { type: String, required: true },
     nameColor: { type: String, required: true }
 },  
