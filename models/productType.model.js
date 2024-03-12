@@ -1,6 +1,6 @@
-var { model } = require("mongoose");
+var {Schema, model } = require("mongoose");
 
-var productTypeSchema = new db.mongoose.Schema({
+var productTypeSchema = new Schema({
     tenLoai: { type: String, required: true }
 },  
 {
