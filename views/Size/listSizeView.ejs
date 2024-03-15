@@ -1,0 +1,36 @@
+<%- include ('../inc/header') %>
+
+<h1 class="alert alert-info">Danh sách Size</h1>
+<%= msg %>
+
+<% if(typeof(size) != 'undefined' && size.length > 0) { %>
+    <table class="table table-bordered">
+        <tr>
+            <th>Size Code</th>
+            <th>Color</th>
+            <th>Quantity</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
+        </tr>
+
+        <% size.forEach((row) => { %>
+        <tr>
+            <td><%= row.sizeCode %></td>
+            <td><%= row.color %></td>
+            <td><%= row.quantity %></td>
+            <td>
+                <a href="/sizes/edit/<%= row._id  %>"> Sửa </a>
+            </td>
+            <td>
+                <a href="/sizes/delete/<%= row._id  %>">Xóa</a>
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+<% } else { %>
+    Không có dữ liệu
+<% } %>
+
+<a href="/sizes/add" class="btn btn-primary">Thêm size mới</a>
+
+<%- include ('../inc/footer') %>
