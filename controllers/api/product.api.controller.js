@@ -13,13 +13,13 @@ exports.getAllProductWithPage = async (req, res) => {
     let pageSize = parseInt(req.query.pageSize) || 20;
     try {
         let shirts = await mdProduct.find()
-        .populate('productType')
-        .populate({
-            path: 'size',
-            populate : 'sizeCode color'
-        })
-        .skip((page - 1) * pageSize)
-        .limit(pageSize);
+            .populate('productType')
+            .populate({
+                path: 'size',
+                populate: 'sizeCode color'
+            })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize);
 
         let totalShirts = await mdProduct.countDocuments();
         res.status(200).json({
@@ -30,7 +30,7 @@ exports.getAllProductWithPage = async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({err : err.message});
+        res.status(500).json({ err: err.message });
     }
 }
 //search products
@@ -39,15 +39,15 @@ exports.searchProduct = async (req, res) => {
     let pageSize = parseInt(req.query.pageSize) || 20;
     let keyword = req.query.keyword;
     try {
-        let shirts = await mdProduct.find({ productName : { $regex: new RegExp(keyword, 'i') }})
-        .populate('productType')
-        .populate({
-            path: 'size',
-            populate : 'sizeCode color'
-        })
-        .skip((page - 1) * pageSize)
-        .limit(pageSize);
- 
+        let shirts = await mdProduct.find({ productName: { $regex: new RegExp(keyword, 'i') } })
+            .populate('productType')
+            .populate({
+                path: 'size',
+                populate: 'sizeCode color'
+            })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize);
+
         let totalShirts = shirts.length;
         res.status(200).json({
             page: page,
@@ -57,7 +57,7 @@ exports.searchProduct = async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({err : err.message});
+        res.status(500).json({ err: err.message });
     }
 }
 
@@ -65,17 +65,25 @@ exports.searchProduct = async (req, res) => {
 exports.filterProducts = async (req, res) => {
     let page = parseInt(req.query.page) || 1;
     let pageSize = parseInt(req.query.pageSize) || 20;
-    let id = req.query.id;            
+    let id = req.query.id; // id of the product type
+    let idColor = req.query.idColor; // id of the colorCode
+    let reqSort = req.query.sort; // 0: low to high, 1: high to low, 2: new posts, 3 : quantitySold
     try {
-        let shirts = await mdProduct.find({ 'size.color' : { $elemMatch: { _id: id } }})
-        .populate('productType')
-        .populate({
-            path: 'size',
-            populate : 'sizeCode color'
-        })
-        .skip((page - 1) * pageSize)
-        .limit(pageSize);
- 
+
+        if(id == null) {
+        }else if(idColor == null) {
+            
+        }
+
+        let shirts = await mdProduct.find({ 'size.color': { $elemMatch: { _id: id } } })
+            .populate('productType')
+            .populate({
+                path: 'size',
+                populate: 'sizeCode color'
+            })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize);
+
         let totalShirts = shirts.length;
         res.status(200).json({
             page: page,
@@ -85,17 +93,36 @@ exports.filterProducts = async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({err : err.message});
+        res.status(500).json({ err: err.message });
     }
 }
 
 //sort products by productType
 exports.sortProducts = async (req, res) => {
+    let reqStatus = req.query.status; // 0: low to high, 1: high to low, 2: new posts, 3 : quantitySold
+    let page = parseInt(req.query.page) || 1;
+    let pageSize = parseInt(req.query.pageSize) || 20;
     try {
-        
+        let shirts = await mdProduct.find({ 'size.color': { $elemMatch: { _id: id } } })
+        .populate('productType')
+        .populate({
+            path: 'size',
+            populate: 'sizeCode color'
+        })
+        .skip((page - 1) * pageSize)
+        .limit(pageSize);
+
+    let totalShirts = shirts.length;
+    res.status(200).json({
+        page: page,
+        pageSize: pageSize,
+        totalItems: totalShirts,
+        data: shirts
+    });
+
     } catch (err) {
         console.log(err);
-        res.status(500).json({err : err.message});
+        res.status(500).json({ err: err.message });
     }
 }
 
@@ -107,10 +134,20 @@ exports.getAllProductType = async (req, res) => {
         res.status(200).json(productType);
     } catch (err) {
         console.log(err);
-        res.status(500).json({err : err.message});
+        res.status(500).json({ err: err.message });
     }
 }
-/////////// III. API COLOR 
+/////////// III. API COLOR
 /////////// IV. API COLOR CODE
-/////////// V. API SIZE 
+//get all color Code
+exports.getAllColorCode = async (req, res) => {
+    try {
+        let colorCode = await mdColorCode.find();
+        res.status(200).json(colorCode);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ err: err.message });
+    }
+}
+/////////// V. API SIZE
 /////////// VI. API SIZE CODE

@@ -7,4 +7,7 @@ var productCtrl = require('../../controllers/api/product.api.controller');
 router.get('/', productCtrl.getAllProductWithPage);
 router.get('/search', productCtrl.searchProduct);
 router.get('/filter', productCtrl.filterProducts);
+
+router.get('/pt', productCtrl.getAllProductType);
+router.get('/color', productCtrl.getAllColorCode);
 module.exports = router;       
