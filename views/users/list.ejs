@@ -1,0 +1,66 @@
+<%- include ('../inc/header') %>
+
+<h1 class="alert alert-info">Danh sách người dùng</h1>
+
+<% if(typeof(users) != 'undefined' && users.length > 0) { %>
+    <table class="table table-bordered">
+        <tr>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th>Số điện thoại</th>
+            <th>Trạng thái</th>
+            <th>Khóa</th>
+        </tr>
+
+        <% users.forEach((row) => { %>
+        <tr>
+            <td><%= row.fullname %></td>
+            <td><%= row.email %></td>
+            <td><%= row.diaChi %></td>
+            <td><%= row.sdt %></td>
+            <td>
+                <% if(row.status == 0) { %>
+                    Admin
+                <% } else if(row.status == 1) { %>
+                    Người dùng
+                <% } else if(row.status == 3) { %>
+                    Người dùng bị khóa
+                <% } %>
+            </td>
+            <td>
+                <button class="lock-button" data-id="<%= row._id %>">Khóa</button>
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+<% } else { %>
+    Không có dữ liệu
+<% } %>
+
+<a href="/users" class="btn btn-primary">Thêm người dùng mới</a>
+
+<script>
+    document.querySelectorAll('.lock-button').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            var userId = event.target.getAttribute('data-id');
+            if (confirm('Bạn có muốn khóa người dùng này không?')) {
+                fetch('/users/lock/' + userId, {
+                    method: 'POST',
+                }).then(function(response) {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Lỗi khi khóa người dùng');
+                    }
+                }).then(function() {
+                    window.location.reload();
+                }).catch(function(error) {
+                    console.error('Lỗi:', error);
+                });
+            }
+        });
+    });
+</script>
+
+<%- include ('../inc/footer') %>
