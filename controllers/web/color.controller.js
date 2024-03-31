@@ -1,44 +1,44 @@
+// Controller
+var md = require('../../models/color.model');
 var colorCodeModel = require('../../models/colorCode.model');
-var colorModel = require('../../models/color.model');
 
-exports.listColor = async (req, res, next) => {
+exports.getColorPage = async (req, res, next) => {
     let msg = '';
     let list = [];
+    let colorCodes = [];
 
     try {
-        list = await colorModel.find().populate('colorCode');
+        list = await md.find().populate('colorCode');
+        colorCodes = await colorCodeModel.find();
         msg = 'Lấy danh sách màu thành công';
     } catch (error) {
         msg = error.message; 
     } 
 
-    res.render('color/list', { msg: msg, colors: list });
-}
-
-exports.addColor = async (req, res, next) => {
-    let msg = '';
-    if(req.method == 'POST'){
-        console.log(req.body);
-        let objC = new colorModel();
-        // Make sure colorCode and quantity are provided
-        if (!req.body.colorCode || !req.body.quantity) {
-            msg = "colorCode and quantity are required";
-            res.render('color/add', {msg: msg});
-            return;
+    if (req.method == 'POST') {
+        let objColor = await md.findOne({ colorCode: req.body.colorCode });
+        if (req.body.colorCode == '' || req.body.quantity == '' || !req.body.image) {
+            msg = 'Phải nhập đầy đủ thông tin'
+        } else {
+            if (objColor == null) {
+                let a = req.body;
+                console.log(a);
+                try {
+                    let obj = new md();
+                    obj.colorCode = req.body.colorCode;
+                    obj.image = req.body.image; // Lưu đường dẫn hình ảnh
+                    obj.quantity = req.body.quantity;
+                    await obj.save();
+                    msg = 'Thêm màu thành công';
+                } catch (error) {
+                    msg = "loi : " + error.message;
+                    console.log(msg);
+                }
+            } else {
+                msg = 'Mã màu đã tồn tại, vui lòng chọn 1 mã màu khác';
+            }
         }
-        objC.colorCode = req.body.colorCode;
-        objC.image = req.body.image;
-        objC.quantity = req.body.quantity;
-    
-        try {
-            let new_c = await objC.save();
-            console.log(new_c);
-            msg = "Thêm màu mới thành công";
-            res.redirect('/colors');
-        } catch (error) {
-            msg = error.message;
-        } 
     }
-    
-    res.render('color/add', {msg: msg});
+
+    res.render('color/colorList', { msg: msg, colors: list, colorCodes: colorCodes });
 }

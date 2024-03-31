@@ -1,10 +1,9 @@
+// Router
 var express = require('express');
 var router = express.Router();
 var colorCtrl = require('../../controllers/web/color.controller')
 
-router.get('/', colorCtrl.listColor);
-
-router.get('/add', colorCtrl.addColor);
-router.post('/add', colorCtrl.addColor);
+router.get('/', colorCtrl.getColorPage);
+router.post('/', colorCtrl.getColorPage);
 
 module.exports = router;

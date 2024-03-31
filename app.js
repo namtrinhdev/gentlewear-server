@@ -8,8 +8,10 @@ var logger = require('morgan');
 var indexRouter = require('./routes/web/index');
 var usersRouter = require('./routes/web/users');
 var loginRouter = require('./routes/web/login.router');
-var sizeRouter = require('./routes/web/size.route');
+var colorCodeRouter = require('./routes/web/colorcode.router');
 var colorRouter = require('./routes/web/color.router');
+var sizeRouter = require('./routes/web/size.route');
+var productRouter = require('./routes/web/product.route');
 //api
 var apiUserRouter = require("./routes/api/users.api");
 var apiProductRouter = require("./routes/api/products.api");
@@ -31,8 +33,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
-app.use('/sizes', sizeRouter);
-app.use('/colors', colorRouter);
+app.use('/color', colorRouter);
+app.use('/colorCode', colorCodeRouter);
+app.use('/size', sizeRouter);
+app.use('/product', productRouter);
 //api
 app.use('/api/users',apiUserRouter);
 app.use('/api/products',apiProductRouter);

@@ -1,0 +1,131 @@
+<%- include ('../inc/header') %>
+
+<h1 class="alert alert-info">Danh sách Sản Phẩm</h1>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+  Thêm Sản Phẩm
+</button>
+
+<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addProductTypeModal">
+  Thêm Loại Sản Phẩm
+</button>
+
+<!-- Form lọc -->
+<form action="" method="get">
+    <label for="filterSize">Lọc theo Size:</label>
+    <select id="filterSize" name="size">
+        <% sizes.forEach((row)=> { %>
+            <option value="<%= row._id %>">
+                <%= row.sizeCode.sizeCode %>
+            </option>
+        <% }) %>
+    </select>
+    <label for="filterProductType">Lọc theo Loại Sản Phẩm:</label>
+    <select id="filterProductType" name="productType">
+        <% productTypes.forEach((row)=> { %>
+            <option value="<%= row._id %>">
+                <%= row.tenLoai %>
+            </option>
+        <% }) %>
+    </select>
+    <button type="submit">Lọc</button>
+</form>
+
+
+<% if(typeof(products) != 'undefined' && products.length > 0) { %>
+    <table class="table table-bordered">
+        <tr>
+            <th>Tên Sản Phẩm</th>
+            <th>Giá</th>
+            <th>Số Lượng</th>
+            <th>Loại Sản Phẩm</th>
+            <th>Kích Cỡ</th>
+        </tr>
+
+        <% products.forEach((row) => { %>
+        <tr>
+            <td><%= row.productName %></td>
+            <td><%= row.price %></td>
+            <td><%= row.quantity %></td>
+            <td><%= row.productType.map(pt => pt.tenLoai).join(', ') %></td>
+            <td><%= row.size.map(s => s.sizeCode.sizeCode).join(', ') %></td>
+        </tr>
+        <% }) %>
+    </table>
+<% } else { %>
+    Không có dữ liệu
+<% } %>
+
+<!-- Biểu mẫu modal để thêm sản phẩm mới -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Thêm Sản Phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    <input type="hidden" name="action" value="addProduct">
+                    <label for="productName" class="form-label">Tên Sản Phẩm:</label>
+                    <input id="txtProductName" class="form-control" name="productName" type="text">
+                    <label for="price" class="form-label">Giá:</label>
+                    <input id="txtPrice" class="form-control" name="price" type="number">
+                    <label for="quantity" class="form-label">Số Lượng:</label>
+                    <input id="txtQuantity" class="form-control" name="quantity" type="number">
+                    <label for="productType" class="form-label">Loại Sản Phẩm:</label>
+                    <select id="txtProductType" class="form-control" name="productType">
+                        <% productTypes.forEach((row)=> { %>
+                            <option value="<%= row._id %>">
+                                <%= row.tenLoai %>
+                            </option>
+                        <% }) %>
+                    </select>
+                    <label for="size" class="form-label">Kích Cỡ:</label>
+                    <select id="txtSize" class="form-control" name="size">
+                        <% sizes.forEach((row)=> { %>
+                            <option value="<%= row._id %>">
+                                <%= row.sizeCode.sizeCode %>
+                            </option>
+                        <% }) %>
+                    </select>
+                    <label for="exampleInputEmail1" class="form-label fs-6 text-danger">
+                        <%=msg%>
+                    </label><br />
+                    <button type="submit"
+                        class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Biểu mẫu modal để thêm loại sản phẩm mới -->
+<div class="modal fade" id="addProductTypeModal" tabindex="-1" aria-labelledby="addProductTypeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductTypeModalLabel">Thêm Loại Sản Phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    <input type="hidden" name="action" value="addProductType">
+                    <label for="newTenLoai" class="form-label">Tên Loại Sản Phẩm:</label>
+                    <input id="txtNewTenLoai" class="form-control" name="newTenLoai" type="text">
+                    <label for="exampleInputEmail1" class="form-label fs-6 text-danger">
+                        <%=msg%>
+                    </label><br />
+                    <button type="submit"
+                        class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('../inc/footer') %>
