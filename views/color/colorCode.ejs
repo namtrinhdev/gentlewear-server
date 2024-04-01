@@ -1,0 +1,21 @@
+<%- include ('../inc/header') %>
+<div class="modal fade" id="addColorCodeModal" tabindex="-1" aria-labelledby="addColorCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addColorCodeModalLabel">Thêm Mã Màu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+<form method="post">
+    <label for="colorCode">Mã Màu:</label><br>
+    <input type="text" id="colorCode" name="colorCode"><br>
+    <label for="nameColor">Tên Màu:</label><br>
+    <input type="text" id="nameColor" name="nameColor"><br>
+    <input type="submit" value="Thêm">
+</form>
+</div>
+</div>
+</div>
+</div>
+<%- include ('../inc/footer') %>
