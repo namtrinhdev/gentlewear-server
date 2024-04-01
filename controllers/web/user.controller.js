@@ -1,6 +1,20 @@
 var md = require('../../models/user.model');
 var bcrypt = require('bcrypt');
 
+exports.getAllUsers = async (req, res, next) => {
+    let msg = '';
+    let list = [];
+
+    try {
+        list = await md.userModel.find();
+        msg = 'Lấy danh sách người dùng thành công';
+    } catch (error) {
+        msg = error.message; 
+    } 
+
+    res.render('users/list', { msg: msg, users: list });
+}
+
 exports.getUserPage = async (req, res, next) => {
     let msg = '';
     if (req.method == 'POST') {
@@ -39,4 +53,27 @@ exports.getUserPage = async (req, res, next) => {
         }
     }
     res.render('users/user', { msg: msg });
+}
+
+exports.lockUser = async (req, res, next) => {
+    let msg = '';
+    let id = req.params.id; 
+    let objU = await md.userModel.findById(id);
+
+    if(objU == null){
+        msg = "Không tìm thấy người dùng";
+        res.render('users/lock', { msg: msg });
+    }
+
+    if(req.method =='POST'){
+        try {
+            objU.status = 3;
+            await md.userModel.findByIdAndUpdate(id, objU);
+            res.redirect('/users');
+        } catch (error) {
+            msg = error.message;
+        }
+    }
+
+    res.render('users/lock', { msg: msg, user: objU });
 }
