@@ -10,6 +10,7 @@ router.post('/', userCtrl.getUserPage);
 router.get('/list', userCtrl.getAllUsers);
 
 /* Lock a user. */
+router.get('/lock/:id', userCtrl.lockUser);
 router.post('/lock/:id', userCtrl.lockUser);
 
 module.exports = router;

@@ -7,7 +7,11 @@ exports.getAllUsers = async (req, res, next) => {
 
     try {
         list = await md.userModel.find();
-        msg = 'Lấy danh sách người dùng thành công';
+        if(list.isLocked){
+            msg = 'Mở khóa'
+        }else{
+            msg = 'Khóa'
+        }
     } catch (error) {
         msg = error.message; 
     } 
@@ -62,18 +66,24 @@ exports.lockUser = async (req, res, next) => {
 
     if(objU == null){
         msg = "Không tìm thấy người dùng";
-        res.render('users/lock', { msg: msg });
+        res.render('users/list', { msg: msg });
     }
 
     if(req.method =='POST'){
         try {
-            objU.status = 3;
-            await md.userModel.findByIdAndUpdate(id, objU);
-            res.redirect('/users');
+            let data = {};
+            if(objU.isLocked){
+                objU.isLocked = false;
+            }else{
+                objU.isLocked = true;
+            }
+            data = objU;
+            await md.userModel.findByIdAndUpdate(id, data);
+            res.redirect('/users/list');
         } catch (error) {
             msg = error.message;
         }
     }
 
-    res.render('users/lock', { msg: msg, user: objU });
+    res.render('users/list', { msg: msg, user: objU });
 }

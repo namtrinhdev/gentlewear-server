@@ -73,6 +73,7 @@ exports.postRegister = async (req, res) => {
             obj.email = req.body.email;
             obj.passwd = hashedPassword;
             obj.status = 1;// 1: nguoi dung
+            obj.isLocked = false;
             obj.avatar = "user.jpg";//avatar mac dinh
             obj.save();
 
