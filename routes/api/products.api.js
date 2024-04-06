@@ -5,6 +5,8 @@ var objUpload = multer({dest: './uploads'});
 var productCtrl = require('../../controllers/api/product.api.controller');
 
 router.get('/', productCtrl.getAllProductWithPage);
-router.get('/search', productCtrl.searchProduct);
+router.get('/search', productCtrl.searchProductByName);
 router.get('/filter', productCtrl.filterProducts);
-module.exports = router;       
+router.get('/pt', productCtrl.getAllProductType);
+router.get('/sort', productCtrl.sortProducts);
+module.exports = router;         
