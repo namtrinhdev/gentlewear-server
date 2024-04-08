@@ -14,7 +14,7 @@ let ThanhToanSchema = new Schema(
       time: { type: String, required: true },
     }, { _id: false })],
     payOptions: { type: Number, required: true} // 0: cash, 1: zalopay
-  },
+  }, 
   {
     collection: 'ThanhToan',
   }
