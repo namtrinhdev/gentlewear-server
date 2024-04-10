@@ -16,7 +16,7 @@
     <select id="filterSize" name="size">
         <% sizes.forEach((row)=> { %>
             <option value="<%= row._id %>">
-                <%= row.sizeCode.sizeCode %>
+                <%= row.sizeCode %>
             </option>
         <% }) %>
     </select>
@@ -47,8 +47,12 @@
             <td><%= row.productName %></td>
             <td><%= row.price %></td>
             <td><%= row.quantity %></td>
-            <td><%= row.productType.map(pt => pt.tenLoai).join(', ') %></td>
-            <td><%= row.size.map(s => s.sizeCode.sizeCode).join(', ') %></td>
+            <td><%= row.productType.tenLoai %></td>
+            <td>
+                <% row.size.forEach((size) => { %>
+                    <%= size.sizeCode.sizeCode %> 
+                <% }) %>
+            </td>
         </tr>
         <% }) %>
     </table>
@@ -87,10 +91,16 @@
                     <select id="txtSize" class="form-control" name="size">
                         <% sizes.forEach((row)=> { %>
                             <option value="<%= row._id %>">
-                                <%= row.sizeCode.sizeCode %>
+                                <%= row.sizeCode %>
                             </option>
                         <% }) %>
                     </select>
+                    <label for="quantitySold" class="form-label">Số Lượng Đã Bán:</label>
+                    <input id="txtQuantitySold" class="form-control" name="quantitySold" type="number">
+                    <label for="image" class="form-label">Hình Ảnh:</label>
+                    <input id="txtImage" class="form-control" name="image" type="text">
+                    <label for="mota" class="form-label">Mô Tả:</label>
+                    <input id="txtMota" class="form-control" name="mota" type="text">
                     <label for="exampleInputEmail1" class="form-label fs-6 text-danger">
                         <%=msg%>
                     </label><br />

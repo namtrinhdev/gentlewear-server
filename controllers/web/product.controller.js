@@ -28,7 +28,7 @@ exports.getProductPage = async (req, res, next) => {
     if (req.method == 'POST') {
         if (req.body.action === 'addProduct') {
             let objProduct = await productModel.findOne({ productName: req.body.productName });
-            if (req.body.productName == '' || req.body.price == '' || req.body.quantity == '' || req.body.productType == '' || req.body.size == '') {
+            if (req.body.productName == '' || req.body.price == '' || req.body.quantity == '' || req.body.productType == '' || req.body.size == '' || req.body.quantitySold == '' || req.body.image == '' || req.body.mota == '') {
                 msg = 'Phải nhập đầy đủ thông tin'
             } else {
                 if (objProduct == null) {
@@ -37,9 +37,11 @@ exports.getProductPage = async (req, res, next) => {
                         obj.productName = req.body.productName;
                         obj.price = req.body.price;
                         obj.quantity = req.body.quantity;
-                        obj.productType = req.body.productType;
-                        obj.size = req.body.size;
-                        obj.quantitySold = 0; // Đặt quantitySold thành 0
+                        obj.productType = req.body.productType; // Đây là ObjectId của productType
+                        obj.size = req.body.size; // Đây là ObjectId của size
+                        obj.quantitySold = req.body.quantitySold; // Đặt quantitySold theo yêu cầu
+                        obj.image = req.body.image; // Đặt image theo yêu cầu
+                        obj.mota = req.body.mota; // Đặt mota theo yêu cầu
                         await obj.save();
                         msg = 'Thêm sản phẩm thành công';
                     } catch (error) {
