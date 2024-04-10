@@ -16,7 +16,13 @@ exports.getAllProductWithPage = async (req, res) => {
             .populate('productType')
             .populate({
                 path: 'size',
-                populate: 'sizeCode color'
+                populate: [{
+                    path: 'sizeCode'
+                },
+                {
+                    path: 'color',
+                    populate: 'colorCode'
+                }]
             })
             .skip((page - 1) * pageSize)
             .limit(pageSize);
@@ -45,7 +51,13 @@ exports.searchProductByName = async (req, res) => {
             .populate('productType')
             .populate({
                 path: 'size',
-                populate: 'sizeCode color'
+                populate: [{
+                    path: 'sizeCode'
+                },
+                {
+                    path: 'color',
+                    populate: 'colorCode'
+                }]
             })
             .skip((page - 1) * pageSize)
             .limit(pageSize);
@@ -119,7 +131,13 @@ exports.sortProducts = async (req, res) => {
             .populate('productType')
             .populate({
                 path: 'size',
-                populate: 'sizeCode color'
+                populate: [{
+                    path: 'sizeCode'
+                },
+                {
+                    path: 'color',
+                    populate: 'colorCode'
+                }]
             })
             .sort(sortQuery) // Apply sorting query
             .skip((page - 1) * pageSize)

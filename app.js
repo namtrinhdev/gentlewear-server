@@ -16,6 +16,7 @@ var productRouter = require('./routes/web/product.route');
 var apiUserRouter = require("./routes/api/users.api");
 var apiProductRouter = require("./routes/api/products.api");
 var apiThanhToanRouter = require("./routes/api/thanhtoan.api");
+var apiFavoriteRouter = require("./routes/api/favorite.api");
 
 var app = express();
 
@@ -42,6 +43,7 @@ app.use('/product', productRouter);
 app.use('/api/users',apiUserRouter);
 app.use('/api/products',apiProductRouter);
 app.use('/api/orders',apiThanhToanRouter);
+app.use('/api/favorite',apiFavoriteRouter);
 
 
 // catch 404 and forward to error handler
