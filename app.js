@@ -9,6 +9,7 @@ var indexRouter = require('./routes/web/index');
 var usersRouter = require('./routes/web/users');
 var loginRouter = require('./routes/web/login.router');
 var colorCodeRouter = require('./routes/web/colorcode.router');
+var sizeCodeRouter = require('./routes/web/sizeCode.router');
 var colorRouter = require('./routes/web/color.router');
 var sizeRouter = require('./routes/web/size.route');
 var productRouter = require('./routes/web/product.route');
@@ -36,6 +37,7 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/color', colorRouter);
 app.use('/colorCode', colorCodeRouter);
+app.use('/sizeCode', sizeCodeRouter);
 app.use('/size', sizeRouter);
 app.use('/product', productRouter);
 //api
