@@ -38,7 +38,6 @@ exports.getUserPage = async (req, res, next) => {
                     obj.email = req.body.email;
                     obj.avatar = req.body.avatar;
                     obj.diaChi = req.body.diaChi;
-                    obj.isLocked = false;
                     obj.sdt = req.body.sdt;
                     if (req.body.status == '0') {
                         obj.status = 0;

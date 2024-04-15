@@ -1,117 +1,105 @@
 var md = require('../../models/thanhtoan.model');
 var mdUser = require('../../models/user.model');
 
-//1 get ds chờ xác nhận
+//get ds chờ xác nhận
 exports.getWaitConfirmByIdUser = async (req, res) => {
     try {
-        let list = await md.find({ 'trangThai': 1, user: req.params.idUser })
+        let list = {};
+        //user
+        list = await md.find({ 'trangThai': 1, user: req.params.idUser })
+            .populate('cart.products')
             .populate({
                 path: 'cart.products',
-                populate: [
-                    {
-                        path: 'size', populate: [
-                            { path: 'color', populate: { path: 'colorCode' } },
-                            { path: 'sizeCode' }
-                        ]
-                    },
-                    { path: 'productType' }
-                ]
+                populate: 'productType size'
             })
-            .populate('user')
-            .populate('statusUpdates')
+            .populate({
+                path: 'cart.products.size',
+                populate: 'sizeCode color'
+            })
+            .populate('user');
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
     }
 }
-//2 get ds chờ lấy hàng
+//get ds chờ lấy hàng
 exports.getWaitForFoodByIdUser = async (req, res) => {
     try {
-        let list = await md.find({ 'trangThai': 2, user: req.params.idUser })
+        let list = {};
+        //user
+        list = await md.find({ 'trangThai': 2, user: req.params.idUser })
+            .populate('cart.products')
             .populate({
                 path: 'cart.products',
-                populate: [
-                    {
-                        path: 'size', populate: [
-                            { path: 'color', populate: { path: 'colorCode' } },
-                            { path: 'sizeCode' }
-                        ]
-                    },
-                    { path: 'productType' }
-                ]
+                populate: 'productType size'
             })
-            .populate('user')
-            .populate('statusUpdates')
+            .populate({
+                path: 'cart.products.size',
+                populate: 'sizeCode color'
+            })
+            .populate('user');
+
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
     }
 }
-//3 get ds đang giao
+//get ds đang giao
 exports.getDeliveringByIdUser = async (req, res) => {
     try {
-        let list = await md.find({ 'trangThai': 3, user: req.params.idUser })
+        let list = {};
+        list = await md.find({ 'trangThai': 3, user: req.params.idUser })
+            .populate('cart.products')
             .populate({
                 path: 'cart.products',
-                populate: [
-                    {
-                        path: 'size', populate: [
-                            { path: 'color', populate: { path: 'colorCode' } },
-                            { path: 'sizeCode' }
-                        ]
-                    },
-                    { path: 'productType' }
-                ]
+                populate: 'productType size'
             })
-            .populate('user')
-            .populate('statusUpdates')
+            .populate({
+                path: 'cart.products.size',
+                populate: 'sizeCode color'
+            })
+            .populate('user');
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
     }
 }
-//4 get ds đã giao
+//get ds đã giao
 exports.getDeliveredByIdUser = async (req, res) => {
     try {
-        let list = await md.find({ 'trangThai': 4, user: req.params.idUser })
+        let list = {};
+        list = await md.find({ 'trangThai': 4, user: req.params.idUser })
+            .populate('cart.products')
             .populate({
                 path: 'cart.products',
-                populate: [
-                    {
-                        path: 'size', populate: [
-                            { path: 'color', populate: { path: 'colorCode' } },
-                            { path: 'sizeCode' }
-                        ]
-                    },
-                    { path: 'productType' }
-                ]
+                populate: 'productType size'
             })
-            .populate('user')
-            .populate('statusUpdates')
+            .populate({
+                path: 'cart.products.size',
+                populate: 'sizeCode color'
+            })
+            .populate('user');
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
     }
 }
 
-//0 get ds đã hủy
+//get ds đã hủy
 exports.getCanceledByIdUser = async (req, res) => {
     try {
-        let list = await md.find({ 'trangThai': 0, user: req.params.idUser })
+        let list = {};
+        list = await md.find({ 'trangThai': 0, user: req.params.idUser })
+            .populate('cart.products')
             .populate({
                 path: 'cart.products',
-                populate: [
-                    {
-                        path: 'size', populate: [
-                            { path: 'color', populate: { path: 'colorCode' } },
-                            { path: 'sizeCode' }
-                        ]
-                    },
-                    { path: 'productType' }
-                ]
+                populate: 'productType size'
             })
-            .populate('user')
-            .populate('statusUpdates')
+            .populate({
+                path: 'cart.products.size',
+                populate: 'sizeCode color'
+            })
+            .populate('user');
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
@@ -125,7 +113,7 @@ exports.postRequest = async (req, res) => {
         status: 0
     }
     try {
-        let users = await mdUser.findById(req.body.user);
+        let users = await mdUser.userModel.findById(req.body.user);
         let obj = new md;
         obj.cart = req.body.cart;
         obj.user = req.body.user;
