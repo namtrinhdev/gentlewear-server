@@ -1,0 +1,15 @@
+<%- include('../inc/header.ejs') %>
+<h2>Lịch sử mua hàng</h2>
+<ul>
+    <% transactions.forEach(transaction => { %>
+        <li>
+            <h3>Đơn hàng <%= transaction._id %></h3>
+            <ul>
+                <% transaction.cart.forEach(item => { %>
+                    <li><%= item.products.productName %> - <%= item.soLuong %> cái</li>
+                <% }) %>
+            </ul>
+        </li>
+    <% }) %>
+</ul>
+<%- include('../inc/footer.ejs') %>
