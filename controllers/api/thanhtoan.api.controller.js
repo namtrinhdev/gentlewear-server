@@ -1,105 +1,117 @@
 var md = require('../../models/thanhtoan.model');
 var mdUser = require('../../models/user.model');
 
-//get ds chờ xác nhận
+//1 get ds chờ xác nhận
 exports.getWaitConfirmByIdUser = async (req, res) => {
     try {
-        let list = {};
-        //user
-        list = await md.find({ 'trangThai': 1, user: req.params.idUser })
-            .populate('cart.products')
+        let list = await md.find({ 'trangThai': 1, user: req.params.idUser })
             .populate({
                 path: 'cart.products',
-                populate: 'productType size'
+                populate: [
+                    {
+                        path: 'size', populate: [
+                            { path: 'color', populate: { path: 'colorCode' } },
+                            { path: 'sizeCode' }
+                        ]
+                    },
+                    { path: 'productType' }
+                ]
             })
-            .populate({
-                path: 'cart.products.size',
-                populate: 'sizeCode color'
-            })
-            .populate('user');
+            .populate('user')
+            .populate('statusUpdates')
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
     }
 }
-//get ds chờ lấy hàng
+//2 get ds chờ lấy hàng
 exports.getWaitForFoodByIdUser = async (req, res) => {
     try {
-        let list = {};
-        //user
-        list = await md.find({ 'trangThai': 2, user: req.params.idUser })
-            .populate('cart.products')
+        let list = await md.find({ 'trangThai': 2, user: req.params.idUser })
             .populate({
                 path: 'cart.products',
-                populate: 'productType size'
+                populate: [
+                    {
+                        path: 'size', populate: [
+                            { path: 'color', populate: { path: 'colorCode' } },
+                            { path: 'sizeCode' }
+                        ]
+                    },
+                    { path: 'productType' }
+                ]
             })
-            .populate({
-                path: 'cart.products.size',
-                populate: 'sizeCode color'
-            })
-            .populate('user');
-
+            .populate('user')
+            .populate('statusUpdates')
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
     }
 }
-//get ds đang giao
+//3 get ds đang giao
 exports.getDeliveringByIdUser = async (req, res) => {
     try {
-        let list = {};
-        list = await md.find({ 'trangThai': 3, user: req.params.idUser })
-            .populate('cart.products')
+        let list = await md.find({ 'trangThai': 3, user: req.params.idUser })
             .populate({
                 path: 'cart.products',
-                populate: 'productType size'
+                populate: [
+                    {
+                        path: 'size', populate: [
+                            { path: 'color', populate: { path: 'colorCode' } },
+                            { path: 'sizeCode' }
+                        ]
+                    },
+                    { path: 'productType' }
+                ]
             })
-            .populate({
-                path: 'cart.products.size',
-                populate: 'sizeCode color'
-            })
-            .populate('user');
+            .populate('user')
+            .populate('statusUpdates')
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
     }
 }
-//get ds đã giao
+//4 get ds đã giao
 exports.getDeliveredByIdUser = async (req, res) => {
     try {
-        let list = {};
-        list = await md.find({ 'trangThai': 4, user: req.params.idUser })
-            .populate('cart.products')
+        let list = await md.find({ 'trangThai': 4, user: req.params.idUser })
             .populate({
                 path: 'cart.products',
-                populate: 'productType size'
+                populate: [
+                    {
+                        path: 'size', populate: [
+                            { path: 'color', populate: { path: 'colorCode' } },
+                            { path: 'sizeCode' }
+                        ]
+                    },
+                    { path: 'productType' }
+                ]
             })
-            .populate({
-                path: 'cart.products.size',
-                populate: 'sizeCode color'
-            })
-            .populate('user');
+            .populate('user')
+            .populate('statusUpdates')
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
     }
 }
 
-//get ds đã hủy
+//0 get ds đã hủy
 exports.getCanceledByIdUser = async (req, res) => {
     try {
-        let list = {};
-        list = await md.find({ 'trangThai': 0, user: req.params.idUser })
-            .populate('cart.products')
+        let list = await md.find({ 'trangThai': 0, user: req.params.idUser })
             .populate({
                 path: 'cart.products',
-                populate: 'productType size'
+                populate: [
+                    {
+                        path: 'size', populate: [
+                            { path: 'color', populate: { path: 'colorCode' } },
+                            { path: 'sizeCode' }
+                        ]
+                    },
+                    { path: 'productType' }
+                ]
             })
-            .populate({
-                path: 'cart.products.size',
-                populate: 'sizeCode color'
-            })
-            .populate('user');
+            .populate('user')
+            .populate('statusUpdates')
         res.status(200).json(list);
     } catch (error) {
         console.log(error);

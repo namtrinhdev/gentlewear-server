@@ -5,6 +5,7 @@ var mdColorCode = require('../../models/colorCode.model');
 var mdSize = require('../../models/size.model');
 var mdSizeCode = require('../../models/sizeCode.model');
 var fs = require('fs');
+const path = require('path');
 
 /////////// I. API PRODUCT  
 //get all products with pages
@@ -16,7 +17,12 @@ exports.getAllProductWithPage = async (req, res) => {
             .populate('productType')
             .populate({
                 path: 'size',
-                populate: 'sizeCode color'
+                populate: [
+                    { path: 'sizeCode' }
+                    , {
+                        path: 'color',
+                        populate: 'colorCode'
+                    }]
             })
             .skip((page - 1) * pageSize)
             .limit(pageSize);
@@ -45,7 +51,12 @@ exports.searchProductByName = async (req, res) => {
             .populate('productType')
             .populate({
                 path: 'size',
-                populate: 'sizeCode color'
+                populate: [
+                    { path: 'sizeCode' }
+                    , {
+                        path: 'color',
+                        populate: 'colorCode'
+                    }]
             })
             .skip((page - 1) * pageSize)
             .limit(pageSize);
@@ -69,10 +80,15 @@ exports.filterProducts = async (req, res) => {
 
         // Tìm các sản phẩm thuộc loại sản phẩm đã chỉ định
         let products = await mdProduct.find({ productType: _id })
-            .populate('productType') // Lấy thông tin về loại sản phẩm
-            .populate({ // Lấy thông tin về kích thước và màu sắc
+            .populate('productType')
+            .populate({
                 path: 'size',
-                populate: [{ path: 'sizeCode' }, { path: 'color' }]
+                populate: [
+                    { path: 'sizeCode' }
+                    , {
+                        path: 'color',
+                        populate: 'colorCode'
+                    }]
             });
 
         // Kiểm tra xem có sản phẩm nào được tìm thấy không
@@ -119,7 +135,12 @@ exports.sortProducts = async (req, res) => {
             .populate('productType')
             .populate({
                 path: 'size',
-                populate: 'sizeCode color'
+                populate: [
+                    { path: 'sizeCode' }
+                    , {
+                        path: 'color',
+                        populate: 'colorCode'
+                    }]
             })
             .sort(sortQuery) // Apply sorting query
             .skip((page - 1) * pageSize)

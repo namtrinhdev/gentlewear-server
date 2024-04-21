@@ -11,10 +11,13 @@ var loginRouter = require('./routes/web/login.router');
 var colorCodeRouter = require('./routes/web/colorcode.router');
 var sizeCodeRouter = require('./routes/web/sizeCode.router');
 var productTypeRouter = require('./routes/web/productType.router');
+var productRouter = require('./routes/web/product');
 //api
 var apiUserRouter = require("./routes/api/users.api");
 var apiProductRouter = require("./routes/api/products.api");
 var apiThanhToanRouter = require("./routes/api/thanhtoan.api");
+var apiFavoriteRouter = require("./routes/api/favorite.api");
+
 
 var app = express();
 
@@ -36,10 +39,12 @@ app.use('/login', loginRouter);
 app.use('/colorCode', colorCodeRouter);
 app.use('/sizeCode', sizeCodeRouter);
 app.use('/productType', productTypeRouter);
+app.use('/products', productRouter);
 //api
 app.use('/api/users',apiUserRouter);
 app.use('/api/products',apiProductRouter);
 app.use('/api/orders',apiThanhToanRouter);
+app.use('/api/favorite',apiFavoriteRouter);
 
 
 // catch 404 and forward to error handler
