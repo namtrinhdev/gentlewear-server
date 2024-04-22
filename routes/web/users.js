@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var userCtrl = require('../../controllers/web/user.controller')
+var userCtrl = require('../../controllers/web/user.controller');
+var checkLogin = require('../../middleware/checklogin');
+var multer = require('multer');
+var objUpload = multer({dest: './uploads'});
 
 /* GET user page. */
 router.get('/', userCtrl.getUserPage);
