@@ -1,12 +1,50 @@
+var mongoose = require('mongoose');
 var md = require('../../models/user.model');
 var bcrypt = require('bcrypt');
+var ThanhToanModel = require('../../models/ThanhToan.model');
 
 exports.getAllUsers = async (req, res, next) => {
     let msg = '';
     let list = [];
 
+    let search = req.query.search || '';
+
     try {
-        list = await md.userModel.find();
+        let searchQuery = {};
+        if (search) {
+            let regex = new RegExp(search, 'i');
+            searchQuery = {
+                $or: [
+                    { fullname: regex },
+                    { email: regex },
+                    { diaChi: regex },
+                    { sdt: regex }
+                ]
+            };
+        }
+
+        list = await md.userModel.aggregate([
+            {
+                $match: searchQuery
+            },
+            {
+                $lookup: {
+                    from: "ThanhToanModel",
+                    localField: "_id",
+                    foreignField: "user",
+                    as: "orders"
+                }
+            },
+            {
+                $addFields: {
+                    orderCount: { $size: "$orders" }
+                }
+            },
+            {
+                $sort: { orderCount: -1 }
+            }
+        ]).exec();
+
         if(list.isLocked){
             msg = 'Mở khóa'
         }else{
@@ -16,7 +54,12 @@ exports.getAllUsers = async (req, res, next) => {
         msg = error.message; 
     } 
 
-    res.render('users/list', { msg: msg, users: list });
+    let page = parseInt(req.query.page) || 1;
+    let perPage = 50;
+    let start = (page - 1) * perPage;
+    let end = page * perPage;
+
+    res.render('users/list', { msg: msg, users: list.slice(start, end), page: page, search: search });
 }
 
 exports.getUserPage = async (req, res, next) => {
@@ -87,3 +130,9 @@ exports.lockUser = async (req, res, next) => {
 
     res.render('users/list', { msg: msg, user: objU });
 }
+
+exports.getPurchaseHistory = async (req, res) => {
+    const userId = req.params.id;
+    const transactions = await ThanhToanModel.find({ user: userId }).populate('cart.products');
+    res.render('users/purchase-history', { transactions: transactions });
+};

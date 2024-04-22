@@ -16,4 +16,7 @@ router.get('/list', userCtrl.getAllUsers);
 router.get('/lock/:id', userCtrl.lockUser);
 router.post('/lock/:id', userCtrl.lockUser);
 
+/* GET purchase history of a user. */
+router.get('/purchase-history/:id', userCtrl.getPurchaseHistory);
+
 module.exports = router;

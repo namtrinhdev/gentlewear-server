@@ -1,4 +1,3 @@
-var md = require('../../models/thanhtoan.model');
 var mdUser = require('../../models/user.model');
 
 //1 get ds chờ xác nhận
