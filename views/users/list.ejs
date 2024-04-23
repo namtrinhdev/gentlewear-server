@@ -1,103 +1,79 @@
 <%- include ('../inc/header') %>
 
-<h1 class="alert alert-info">Danh sách người dùng</h1>
-
-<!-- Thêm form tìm kiếm -->
-<form action="/users/list" method="GET">
-    <input type="text" name="search" placeholder="Tìm kiếm người dùng">
-    <button type="submit">Tìm kiếm</button>
-</form>
-
-<% if(typeof(users) !='undefined' && users.length> 0) { %>
-    <table class="table table-bordered">
-        <tr>
-            <th>Họ và tên</th>
-            <th>Email</th>
-            <th>Địa chỉ</th>
-            <th>Số điện thoại</th>
-            <th>Chức danh</th>
-            <th>Trạng thái</th>
-            <th>Khóa</th>
-        </tr>
-
-        <% users.forEach((row)=> { %>
-            <tr>
-                <td>
-                    <%= row.fullname %>
-                </td>
-                <td>
-                    <%= row.email %>
-                </td>
-                <td>
-                    <%= row.diaChi %>
-                </td>
-                <td>
-                    <%= row.sdt %>
-                </td>
-                <td>
-                    <% if(row.status=0) { %>
-                        Admin
-                        <% } else { %>
-                            Người dùng
-                            <% } %>
-                </td>
-                <td>
-                    <% if(row.isLocked) { %>
-                        Người dùng bị khóa
-                        <% } else if(!row.isLocked) { %>
-                            Hoạt động
-                            <% } %>
-                </td>
-                <td>
-                    <button class="lock-button" data-id="<%= row._id %>">
-                        <% if(row.isLocked) { %>
-                            Mở khóa
-                            <% } else if(!row.isLocked) { %>
-                                Khóa
-                                <% } %>
-                    </button>
-                </td>
-                <td>
-                    <a href="/users/purchase-history/<%= row._id %>">Xem lịch sử mua</a>
-                </td>
-
-            </tr>
-            <% }) %>
-    </table>
-    <% } else { %>
-        Không có dữ liệu
-        <% } %>
-
-    <a href="/users" class="btn btn-primary">Thêm người dùng mới</a>
-
-    <!-- Thêm nút phân trang -->
-    <div class="pagination">
-        <a href="?page=<%= page - 1 %>&search=<%= search %>">«</a>
-        <a href="?page=<%= page %>&search=<%= search %>"><%= page %></a>
-        <a href="?page=<%= page + 1 %>&search=<%= search %>">»</a>
+<div>
+  <div style="display: flex;" class="alert alert-info">
+    <div style="display: flex;">
+      <h2>Danh sách người dùng</h2>
+      <form action="/users/list" method="GET" style="margin-left: 150px;width: 500px;">
+        <div class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Tìm kiếm người dùng" name="search">
+        </div>
+      </form>
+      <a href="/users" class="btn btn-primary" style="margin-left: 520px; height: 40px;">Thêm người dùng mới</a>
     </div>
+  </div>
 
-    <script>
-        document.querySelectorAll('.lock-button').forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                var userId = event.target.getAttribute('data-id');
-                if (confirm('Bạn có muốn khóa người dùng này không?')) {
-                    fetch('/users/lock/' + userId, {
-                        method: 'POST',
-                    }).then(function (response) {
-                        if (response.ok) {
-                            return response.text();
-                        } else {
-                            throw new Error('Lỗi khi khóa người dùng');
-                        }
-                    }).then(function () {
-                        window.location.reload();
-                    }).catch(function (error) {
-                        console.error('Lỗi:', error);
-                    });
-                }
-            });
+  <div style="display: flex;" class="grid gap-0 column-gap-3">
+    <div style="flex-basis: 100%; margin-left: 0%;">
+      <% if(typeof(users) !='undefined' && users.length> 0) { %>
+        <table class="table table-striped table-sm" style="flex-basis: 85%;">
+          <thead>
+            <tr class="table-dark" style="flex-basis: 90%; margin-left: 5%;">
+              <th>Họ và tên</th>
+              <th>Email</th>
+              <th>Địa chỉ</th>
+              <th>Số điện thoại</th>
+              <th>Chức danh</th>
+              <th>Trạng thái</th>
+              <th>Khóa</th>
+              <th>Lịch Sử</th>
+            </tr>
+          </thead>
+          <% users.forEach((row)=> { %>
+            <tr>
+              <td><%= row.fullname %></td>
+              <td><%= row.email %></td>
+              <td><%= row.diaChi %></td>
+              <td><%= row.sdt %></td>
+              <td><% if(row.status=0) { %>Admin<% } else { %>Người dùng<% } %></td>
+              <td><% if(row.isLocked) { %>Người dùng bị khóa<% } else if(!row.isLocked) { %>Hoạt động<% } %></td>
+              <td>
+                <button class="lock-button" data-id="<%= row._id %>">
+                  <% if(row.isLocked) { %>Mở khóa<% } else if(!row.isLocked) { %>Khóa<% } %>
+                </button>
+              </td>
+              <td><a href="/users/purchase-history/<%= row._id %>">Xem lịch sử mua</a></td>
+            </tr>
+          <% }) %>
+        </table>
+      <% } else { %>
+        Không có dữ liệu
+      <% } %>
+    </div>
+  </div>
+  
+
+<script>
+  document.querySelectorAll('.lock-button').forEach(function (button) {
+    button.addEventListener('click', function (event) {
+      var userId = event.target.getAttribute('data-id');
+      if (confirm('Bạn có muốn khóa người dùng này không?')) {
+        fetch('/users/lock/' + userId, {
+          method: 'POST',
+        }).then(function (response) {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error('Lỗi khi khóa người dùng');
+          }
+        }).then(function () {
+          window.location.reload();
+        }).catch(function (error) {
+          console.error('Lỗi:', error);
         });
-    </script>
+      }
+    });
+  });
+</script>
 
 <%- include ('../inc/footer') %>
