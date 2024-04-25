@@ -1,5 +1,5 @@
 var productModel = require('../../models/product.model');
-var ThanhToanModel = require('../../models/ThanhToan.model');
+var ThanhToanModel = require('../../models/thanhtoan.model');
 var productTypeModel = require('../../models/productType.model');
 
 exports.getStatisticsPage = async (req, res, next) => {
@@ -8,7 +8,7 @@ exports.getStatisticsPage = async (req, res, next) => {
     let productTypes = await productTypeModel.find();
     let productTypeRevenue = [];
     let topSellingProducts = [];
-    let totalRevenue = Array(12).fill(0); // Initialize totalRevenue as an array of 12 zeros
+    let totalRevenue = Array(12).fill(0);
 
     try {
         for (let productType of productTypes) {
@@ -35,8 +35,8 @@ exports.getStatisticsPage = async (req, res, next) => {
                         if (item.products.toString() === product._id.toString()) {
                             let revenue = item.soLuong * product.price;
                             typeRevenue += revenue;
-                            let month = new Date(transaction.thoiGian).getMonth(); // Get the month of the transaction
-                            totalRevenue[month] += revenue; // Add the revenue to the corresponding month
+                            let month = new Date(transaction.thoiGian).getMonth(); 
+                            totalRevenue[month] += revenue;
                         }
                     }
                 }
@@ -49,13 +49,18 @@ exports.getStatisticsPage = async (req, res, next) => {
 
         let products = await productModel.find().sort({ quantitySold: -1 }).limit(5);
         for (let product of products) {
-            topSellingProducts.push({ productName: product.productName, quantitySold: product.quantitySold });
+            topSellingProducts.push({
+                productName: product.productName,
+                quantitySold: product.quantitySold,
+                image: product.image, 
+                price: product.price 
+            });
         }
 
         msg = 'Lấy danh sách doanh thu thành công';
         res.render('statistics/statistics', { msg: msg, productTypeRevenue: productTypeRevenue, topSellingProducts: topSellingProducts, totalRevenue: totalRevenue });
     } catch (error) {
-        msg = error.message; 
+        msg = error.message;
         res.render('statistics/statistics', { msg: msg });
-    } 
+    }
 }
