@@ -11,3 +11,4 @@ router.put('/:id', userCtrl.changePassword);
 router.put('/', userCtrl.changePassword);
 
 module.exports = router;       
+ 
