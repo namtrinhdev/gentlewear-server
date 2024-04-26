@@ -8,6 +8,7 @@ let productSchema = new Schema(
         productType: { type: Schema.Types.ObjectId, ref: 'productTypeModel', required: true },
         size: [{ type: Schema.Types.ObjectId, ref:'sizeModel', required: true }],
         quantitySold: { type: Number, required: true },
+        image:{ type: String,required: true},
         mota:{ type: String,required: true}
     },
     {
