@@ -138,10 +138,20 @@ exports.getPurchaseHistory = async (req, res) => {
         populate: {
             path: 'size',
             model: 'sizeModel',
-            populate: {
-                path: 'sizeCode',
-                model: 'sizeCodeModel'
-            }
+            populate: [
+                {
+                    path: 'sizeCode',
+                    model: 'sizeCodeModel'
+                },
+                {
+                    path: 'color',
+                    model: 'colorModel',
+                    populate: {
+                        path: 'colorCode',
+                        model: 'colorCodeModel'
+                    }
+                }
+            ]
         }
     });
     res.render('users/purchase-history', { transactions: transactions });
