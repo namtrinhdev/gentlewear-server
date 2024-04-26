@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var md = require('../../models/user.model');
 var bcrypt = require('bcrypt');
-var ThanhToanModel = require('../../models/ThanhToan.model');
+var ThanhToanModel = require('../../models/thanhtoan.model');
 
 exports.getAllUsers = async (req, res, next) => {
     let msg = '';
@@ -133,6 +133,28 @@ exports.lockUser = async (req, res, next) => {
 
 exports.getPurchaseHistory = async (req, res) => {
     const userId = req.params.id;
-    const transactions = await ThanhToanModel.find({ user: userId }).populate('cart.products');
+    const transactions = await ThanhToanModel.find({ user: userId }).populate({
+        path: 'cart.products',
+        populate: {
+            path: 'size',
+            model: 'sizeModel',
+            populate: [
+                {
+                    path: 'sizeCode',
+                    model: 'sizeCodeModel'
+                },
+                {
+                    path: 'color',
+                    model: 'colorModel',
+                    populate: {
+                        path: 'colorCode',
+                        model: 'colorCodeModel'
+                    }
+                }
+            ]
+        }
+    });
     res.render('users/purchase-history', { transactions: transactions });
 };
+
+
