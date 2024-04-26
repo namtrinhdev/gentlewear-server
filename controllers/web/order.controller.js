@@ -1,12 +1,12 @@
 const ThanhToanModel = require('../../models/thanhtoan.model');
-const UserModel = require('../../models/user.model'); // Import userModel
+const UserModel = require('../../models/user.model'); 
 
 exports.getOrderManagementPage = async (req, res) => {
     try {
         const transactions = await ThanhToanModel.find({}).populate({
-            path: 'user', // Tham chiếu đến userModel
+            path: 'user', 
             model: 'userModel',
-            select: 'fullname sdt diaChi' // Chọn các trường dữ liệu cần hiển thị
+            select: 'fullname sdt diaChi'
         }).populate({
             path: 'cart.products',
             populate: {
