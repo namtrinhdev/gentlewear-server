@@ -1,0 +1,47 @@
+<!-- views/productType/productTypeList.ejs -->
+<%- include ('../inc/header') %>
+
+<h1 class="alert alert-info">Danh sách Loại Sản Phẩm</h1>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductTypeModal">
+  Thêm Loại Sản Phẩm
+</button>
+
+<% if(typeof(productTypes) != 'undefined' && productTypes.length > 0) { %>
+    <table class="table table-bordered">
+        <tr>
+            <th>Tên Loại</th>
+        </tr>
+
+        <% productTypes.forEach((row) => { %>
+        <tr>
+            <td><%= row.tenLoai %></td>
+        </tr>
+        <% }) %>
+    </table>
+<% } else { %>
+    Không có dữ liệu
+<% } %>
+
+<div class="modal fade" id="addProductTypeModal" tabindex="-1" aria-labelledby="addProductTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProductTypeModalLabel">Thêm Loại Sản Phẩm</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post">
+                <label for="tenLoai" class="form-label">Tên Loại:</label>
+                <input id="txtTenLoai" class="form-control" name="tenLoai" type="text">
+                <label for="exampleInputEmail1" class="form-label fs-6 text-danger">
+                    <%=msg%>
+                </label><br />
+                <button type="submit" class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<%- include ('../inc/footer') %>

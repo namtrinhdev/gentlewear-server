@@ -7,9 +7,19 @@ var logger = require('morgan');
 //web
 var indexRouter = require('./routes/web/index');
 var usersRouter = require('./routes/web/users');
+var loginRouter = require('./routes/web/login.router');
+var colorCodeRouter = require('./routes/web/colorcode.router');
+var sizeCodeRouter = require('./routes/web/sizeCode.router');
+var productTypeRouter = require('./routes/web/productType.router');
+var statisticsRouter = require('./routes/web/statistics');
+var productRouter = require('./routes/web/product');
+var billRouter = require('./routes/web/bill')
 //api
 var apiUserRouter = require("./routes/api/users.api");
-var loginRouter = require('./routes/web/login.router');
+var apiProductRouter = require("./routes/api/products.api");
+var apiThanhToanRouter = require("./routes/api/thanhtoan.api");
+var apiFavoriteRouter = require("./routes/api/favorite.api");
+
 
 var app = express();
 
@@ -25,17 +35,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //web
-app.use('/login', loginRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
+app.use('/colorCode', colorCodeRouter);
+app.use('/sizeCode', sizeCodeRouter);
+app.use('/productType', productTypeRouter);
+app.use('/statistics', statisticsRouter);
+app.use('/products', productRouter);
+app.use('/bills', billRouter);
 //api
 app.use('/api/users',apiUserRouter);
+app.use('/api/products',apiProductRouter);
+app.use('/api/orders',apiThanhToanRouter);
+app.use('/api/favorite',apiFavoriteRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
+ 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

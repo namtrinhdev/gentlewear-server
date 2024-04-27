@@ -2,10 +2,97 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/bootstrap-5.3.0-dist/css/bootstrap.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GENTALWEAR</title> 
+  <link rel="icon" href="https://cdn.discordapp.com/attachments/1093418895412576326/1212408711570788382/z5071407403811_6293090e7f74f549476cd87ea399d299.jpg?ex=65f1ba9a&is=65df459a&hm=eac1a8fa9ab1291e872d5ba69c313377151af9a4f5b61dfd44505fdc571d9081&" type="image/x-icon"> 
+  <link rel="stylesheet" href="/bootstrap-5.3.0-dist/css/bootstrap.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .navbar-custom {
+      background-color: #1e2336;
+      color: white;
+    }
 
+    .navbar-custom .nav-link {
+      color: white;
+    }
+
+    .navbar-custom .navbar-brand {
+      color: white;
+    }
+
+    .navbar-custom .nav-link {
+      color: gray;
+    }
+
+    .navbar-custom .nav-link:hover {
+      color: white;
+    }
+
+    .logout-button {
+      position: absolute;
+      right: 0;
+    }
+    .aside-container  {
+      width: 30%;
+    }
+    .article-container {
+      width: 60%;
+    }
+    .main-container {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
 </head>
 
 <body>
+
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="/">
+      <img
+        src="https://cdn.discordapp.com/attachments/1093418895412576326/1212408711570788382/z5071407403811_6293090e7f74f549476cd87ea399d299.jpg?ex=65f1ba9a&is=65df459a&hm=eac1a8fa9ab1291e872d5ba69c313377151af9a4f5b61dfd44505fdc571d9081&"
+        alt="Logo" style="height: 60px;">
+      GenteWear
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+        <li class="nav-item">
+          <a class="nav-link" href="/statistics">Thống Kê</a>
+        </li>
+        <a class="nav-link" href="/users/list">Quản lý người dùng</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sizeCode">Quản lý Mã Size</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/colorCode">Quản lý Mã Màu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/productType">Quản lý Loại Sản Phẩm</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/products">Quản lý Sản Phẩm</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/bills">Quản lý Đơn hàng</a>
+        </li>
+        <!-- Thêm các liên kết khác tại đây -->
+      </ul>
+      <ul class="navbar-nav logout-button">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">
+            <img
+              src="https://cdn.discordapp.com/attachments/1093418895412576326/1218065463159033906/abc.png?ex=66064edc&is=65f3d9dc&hm=2a7a87f0654c422164d5f1c57cc43115032b5a0bdee4ba24f72180c1fc9362d8&"
+              alt="Logout" style="height: 30px;">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>

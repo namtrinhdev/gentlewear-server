@@ -1,4 +1,3 @@
-<!-- views/users/login.ejs -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +49,13 @@
             cursor: pointer;
             font-size: 1.2em; /* tăng kích thước chữ */
         }
+
+        .message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body class="background-container">
@@ -59,7 +65,9 @@
         <label for="passwd">Password</label>
         <input type="password" id="passwd" name="passwd" required placeholder="Password">
         <input type="submit" value="Đăng Nhập">
+        <% if (msg) { %>
+            <p class="message"><%= msg %></p>
+        <% } %>
     </form>
-    <p><%= msg %></p>
 </body>
 </html>

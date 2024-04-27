@@ -1,0 +1,53 @@
+<!-- views/color/colorCodeList.ejs -->
+<%- include ('../inc/header') %>
+
+<h1 class="alert alert-info">Danh sách Mã Màu</h1>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addColorCodeModal">
+  Thêm Mã Màu
+</button>
+
+<% if(typeof(colorCodes) != 'undefined' && colorCodes.length > 0) { %>
+    <table class="table table-bordered">
+        <tr>
+            <th>Mã Màu</th>
+            <th>Tên Màu</th>
+        </tr>
+
+        <% colorCodes.forEach((row) => { %>
+        <tr>
+            <td><%= row.colorCode %></td>
+            <td><%= row.nameColor %></td>
+        </tr>
+        <% }) %>
+    </table>
+<% } else { %>
+    Không có dữ liệu
+<% } %>
+
+<div class="modal fade" id="addColorCodeModal" tabindex="-1" aria-labelledby="addColorCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addColorCodeModalLabel">Thêm Mã Màu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post">
+                <label for="colorCode" class="form-label">Mã Màu:</label>
+                <input id="txtColorCode" class="form-control" name="colorCode" type="text">
+                <label for="nameColor" class="form-label">Tên Màu:</label>
+                <input id="txtNameColor" class="form-control" name="nameColor" type="text">
+                <label for="exampleInputEmail1" class="form-label fs-6 text-danger">
+                    <%=msg%>
+                </label><br />
+                <button type="submit" class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+    
+
+<%- include ('../inc/footer') %>

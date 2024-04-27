@@ -1,0 +1,74 @@
+<%- include('../inc/header.ejs') %>
+
+<!-- Form thêm Size -->
+<h2 class="text-center mt-1">Thêm Size</h2>
+<div class="container-md  rounded  p-3 mt-3">
+    <form action="/size/add" method="post">
+        <label for="sizeCode" class="form-label">Mã Size:</label>
+        <select id="txtSizeCode" class="form-control" name="sizeCode">
+            <% sizeCodes.forEach((row)=> { %>
+                <option value="<%= row._id %>">
+                    <%= row.sizeCode %>
+                </option>
+            <% }) %>
+        </select>
+        <label for="quantity" class="form-label">Số Lượng:</label>
+        <input id="txtQuantity" class="form-control" name="quantity" type="number">
+        <button type="submit" class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm Size</button>
+    </form>
+</div>
+
+<!-- Form thêm Color -->
+<h2 class="text-center mt-1">Thêm Màu</h2>
+<div class="container-md  rounded  p-3 mt-3">
+    <form action="/color/add" method="post">
+        <label for="colorCode" class="form-label">Mã Màu:</label>
+        <select id="txtColorCode" class="form-control" name="colorCode">
+            <% colorCodes.forEach((row)=> { %>
+                <option value="<%= row._id %>">
+                    <%= row.nameColor %>
+                </option>
+            <% }) %>
+        </select>
+        <label for="image" class="form-label">Hình Ảnh:</label>
+        <input id="txtImage" class="form-control" name="image" type="text" placeholder="Đường dẫn hình ảnh">
+        <label for="quantity" class="form-label">Số Lượng:</label>
+        <input id="txtQuantity" class="form-control" name="quantity" type="number">
+        <button type="submit" class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm Màu</button>
+    </form>
+</div>
+
+<!-- Form thêm Product -->
+<h2 class="text-center mt-1">Thêm Sản Phẩm</h2>
+<div class="container-md  rounded  p-3 mt-3">
+    <form action="/product/add" method="post">
+        <label for="productName" class="form-label">Tên Sản Phẩm:</label>
+        <input id="txtProductName" class="form-control" name="productName" type="text">
+        <label for="price" class="form-label">Giá:</label>
+        <input id="txtPrice" class="form-control" name="price" type="number">
+        <label for="quantity" class="form-label">Số Lượng:</label>
+        <input id="txtQuantity" class="form-control" name="quantity" type="number">
+        <label for="productType" class="form-label">Loại Sản Phẩm:</label>
+        <select id="txtProductType" class="form-control" name="productType">
+            <% productTypes.forEach((row)=> { %>
+                <option value="<%= row._id %>">
+                    <%= row.tenLoai %>
+                </option>
+            <% }) %>
+        </select>
+        <label for="size" class="form-label">Kích Cỡ:</label>
+        <select id="txtSize" class="form-control" name="size">
+            <% sizes.forEach((row)=> { %>
+                <option value="<%= row._id %>">
+                    <%= row.sizeCode %>
+                </option>
+            <% }) %>
+        </select>
+        <button type="submit" class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm Sản Phẩm</button>
+    </form>
+</div>
+
+<!-- Nút quay lại màn hình Quản lý sản phẩm -->
+<a href="/product/manage" class="btn btn-secondary my-auto position-relative start-50 translate-middle mt-3">Quay lại Quản lý sản phẩm</a>
+
+<%- include('../inc/footer.ejs') %>

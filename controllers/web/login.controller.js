@@ -9,17 +9,22 @@ exports.postLoginPage = async (req, res, next) => {
     let msg = '';
     if (req.body.email === 'admin@gmail.com' && req.body.passwd === 'admin') {
         msg = 'Đăng nhập thành công';
-        res.redirect('/users');
+        res.redirect('/users/list');
     } else {
         let objUser = await md.userModel.findOne({ email: req.body.email });
         if (objUser) {
             const match = await bcrypt.compare(req.body.passwd, objUser.passwd);
-            if (match && objUser.status === 0) {
-                msg = 'Đăng nhập thành công';
-                res.render('users/user', { msg: msg });
+            if (match) {
+                if (objUser.status === 0) {
+                    msg = 'Đăng nhập thành công';
+                    res.redirect('/users/list');
+                } else {
+                    msg = 'Bạn không có quyền truy cập. Xin hãy liên hệ quản trị viên.';
+                    res.render('login', { msg: msg });
+                }
             } else {
-                msg = 'Email hoặc mật khẩu không đúng hoặc bạn không có quyền truy cập';
-                res.redirect('/users');
+                msg = 'Email hoặc mật khẩu không đúng';
+                res.render('login', { msg: msg });
             }
         } else {
             msg = 'Email hoặc mật khẩu không đúng';
