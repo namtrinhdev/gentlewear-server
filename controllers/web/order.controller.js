@@ -34,3 +34,16 @@ exports.getOrderManagementPage = async (req, res) => {
         res.status(500).send('Internal server error');
     }
 };
+
+exports.updateTransactionStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { newStatus } = req.body;
+        await ThanhToanModel.findByIdAndUpdate(id, { trangThai: newStatus });
+        res.status(200).send('Transaction status updated successfully');
+    } catch (error) {
+        console.error('Error updating transaction status:', error.message);
+        res.status(500).send('Internal server error');
+    }
+};
+
