@@ -2,8 +2,13 @@ const ThanhToanModel = require('../../models/thanhtoan.model');
 const UserModel = require('../../models/user.model'); 
 
 exports.getOrderManagementPage = async (req, res) => {
-    try {
-        const transactions = await ThanhToanModel.find({}).populate({
+    const page = parseInt(req.query.page) || 1; // lấy số trang hiện tại
+    const itemsPerPage = 10; // đặt số lượng mục trên mỗi trang
+
+    const transactions = await ThanhToanModel.find({})
+        .skip((page - 1) * itemsPerPage) // bỏ qua số lượng mục cần bỏ qua
+        .limit(itemsPerPage) // giới hạn số lượng mục thành itemsPerPage
+        .populate({
             path: 'user', 
             model: 'userModel',
             select: 'fullname sdt diaChi'
@@ -28,22 +33,5 @@ exports.getOrderManagementPage = async (req, res) => {
                 ]
             }
         });
-        res.render('oder/order-management', { transactions: transactions });
-    } catch (error) {
-        console.error('Error fetching orders:', error.message);
-        res.status(500).send('Internal server error');
-    }
+    res.render('oder/order-management', { transactions: transactions, currentPage: page });
 };
-
-exports.updateTransactionStatus = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { newStatus } = req.body;
-        await ThanhToanModel.findByIdAndUpdate(id, { trangThai: newStatus });
-        res.status(200).send('Transaction status updated successfully');
-    } catch (error) {
-        console.error('Error updating transaction status:', error.message);
-        res.status(500).send('Internal server error');
-    }
-};
-

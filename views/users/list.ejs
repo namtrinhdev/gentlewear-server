@@ -9,7 +9,6 @@
           <input type="text" class="form-control" placeholder="Tìm kiếm người dùng" name="search">
         </div>
       </form>
-      <a href="/users" class="btn btn-primary" style="margin-left: 520px; height: 40px;">Thêm người dùng mới</a>
     </div>
   </div>
 
@@ -51,6 +50,13 @@
       <% } %>
     </div>
   </div>
+
+  <div class="pagination">
+        <a href="?page=<%= page - 1 %>&search=<%= search %>" class="btn btn-primary">Trước</a>
+    <span class="current-page btn btn-secondary disabled"><%= page %></span>
+    <a href="?page=<%= page + 1 %>&search=<%= search %>" class="btn btn-primary">Tiếp theo</a>
+</div>
+
   
 
 <script>

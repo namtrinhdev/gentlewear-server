@@ -20,10 +20,8 @@
                     <input type="key" class="form-control" placeholder="Tìm kiếm" name="key">
                 </div>
             </form>
-            <a href="" class="btn btn-primary" style="margin-left: 520px; height: 40px;">Thêm</a>
         </div>
     </div>
-
     <div style="flex-basis: 80%; padding: 20px;">
         <table class="table table-striped table-sm" style="flex-basis: 80%;">
             <thead>
@@ -39,11 +37,11 @@
                 <% transactions.forEach(transaction => { %>
                     <% transaction.cart.forEach(item => { %>
                         <tr class="accordion-toggle">
-                            <td><%= transaction._id %></td> <!-- Mã hóa đơn -->
-                            <td><%= transaction.thoiGian %></td> <!-- Thời gian -->
-                            <td><%= transaction.user.fullname %></td> <!-- Khách hàng -->
-                            <td><%= transaction.tongTien %></td> <!-- Tổng hóa đơn -->
-                            <td><%= transaction.tongTien %></td> <!-- Khách đã trả -->
+                            <td><%= transaction._id %></td>
+                            <td><%= transaction.thoiGian %></td>
+                            <td><%= transaction.user.fullname %></td>
+                            <td><%= transaction.tongTien %></td>
+                            <td><%= transaction.tongTien %></td>
                         </tr>
                         <tr class="accordion-body" style="display: none;">
                             <td colspan="5">
@@ -125,6 +123,12 @@
         </table>
     </div>
 </div>
+<div class="pagination">
+        <a href="?page=<%= currentPage - 1 %>" class="btn btn-primary">Trước</a>
+    <span class="current-page btn btn-secondary disabled"><%= currentPage %></span>
+    <a href="?page=<%= currentPage + 1 %>" class="btn btn-primary">Tiếp theo</a>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const accordionItems = document.querySelectorAll('.accordion-toggle');

@@ -12,8 +12,6 @@
         <tr class="table-dark">
           <th>Ảnh sản phẩm</th>
           <th>Tên sản phẩm</th>
-          <th>Size</th>
-          <th>Màu</th> <!-- Thêm cột mới -->
           <th>Số lượng</th>
           <th>Trạng thái đơn hàng</th>
         </tr>
@@ -24,18 +22,6 @@
             <tr>
               <td><img src="<%= item.products.image %>" alt="Ảnh sản phẩm" width="50" height="50"></td>
               <td><%= item.products.productName %></td>
-              <td>
-                <% item.products.size.forEach(size => { %>
-                  <%= size.sizeCode.sizeCode %>
-                <% }) %>
-              </td>
-              <td>
-                <% item.products.size.forEach(size => { %>
-                  <% size.color.forEach(color => { %>
-                    <%= color.colorCode.nameColor %>
-                  <% }) %>
-                <% }) %>
-              </td> <!-- Hiển thị màu -->
               <td><%= item.soLuong %></td>
               <td>
                 <% switch(transaction.trangThai) { 
@@ -63,5 +49,11 @@
     </table>
   </div>
 </div>
+<div class="pagination">
+        <a href="?page=<%= currentPage - 1 %>" class="btn btn-primary">Trước</a>
+    <span class="current-page btn btn-secondary disabled"><%= currentPage %></span>
+    <a href="?page=<%= currentPage + 1 %>" class="btn btn-primary">Tiếp theo</a>
+</div>
+
 
 <%- include('../inc/footer.ejs') %>
