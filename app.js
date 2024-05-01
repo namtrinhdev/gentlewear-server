@@ -15,6 +15,7 @@ var productTypeRouter = require('./routes/web/productType.router');
 var statisticsRouter = require('./routes/web/statistics');
 var productRouter = require('./routes/web/product');
 var orderRouter = require('./routes/web/order.router');
+
 //api
 var apiUserRouter = require("./routes/api/users.api");
 var apiProductRouter = require("./routes/api/products.api");
