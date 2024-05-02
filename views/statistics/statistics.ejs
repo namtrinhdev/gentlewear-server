@@ -22,7 +22,6 @@
         <tr class="table-dark">
           <th>Tên sản phẩm</th>
           <th>Số lượng đã bán</th>
-          <th>Ảnh sản phẩm</th> <!-- Thêm cột Ảnh sản phẩm -->
           <th>Giá sản phẩm</th> <!-- Thêm cột Giá sản phẩm -->
         </tr>
       </thead>
@@ -99,7 +98,6 @@
         tdPrice.appendChild(document.createTextNode(product.price)); // Thêm giá sản phẩm vào ô giá sản phẩm
         tr.appendChild(tdName);
         tr.appendChild(tdQuantity);
-        tr.appendChild(tdImage); // Thêm ô ảnh sản phẩm vào hàng
         tr.appendChild(tdPrice); // Thêm ô giá sản phẩm vào hàng
         topSellingProductsList.appendChild(tr);
     }
