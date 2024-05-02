@@ -22,6 +22,41 @@
             </form>
         </div>
     </div>
+
+    <div style="display: flex;" class="grid gap-0 column-gap-3">
+        <div style="margin-right: 10dp; flex-basis: 20%;">
+            <aside class="aside">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item" style="border-radius: 10%;">
+                        <h2 class="accordion-header" style="text-align: center;background-color: #cff4fc;">
+                            <label class="bs-info-text-emphasis">Đơn hàng</label>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                            <div style="margin-left: 20px;">
+                                <div style="display: flex;">
+                                    <a href="/orders?trangThai=1" class="nav-link">Chờ xác nhận</a>
+                                </div>
+                                <div>
+                                    <a href="/orders?trangThai=2" class="nav-link">Đã xác nhận</a>
+                                </div>
+                                <div>
+                                    <i class="bi bi-truck"></i>
+                                    <a href="/orders?trangThai=3" class="nav-link">Đang giao hàng</a>
+                                </div>
+                                <div>
+                                    <a href="/orders?trangThai=4" class="nav-link">Đã giao hàng</a>
+                                </div>
+                                <div>
+                                    <a href="/orders?trangThai=5" class="nav-link">Đã hủy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    
+    
     <div style="flex-basis: 80%; padding: 20px;">
         <table class="table table-striped table-sm" style="flex-basis: 80%;">
             <thead>
@@ -123,7 +158,7 @@
         </table>
     </div>
 </div>
-<div class="pagination">
+<div class="pagination" style="margin-left: 90%;">
         <a href="?page=<%= currentPage - 1 %>" class="btn btn-primary">Trước</a>
     <span class="current-page btn btn-secondary disabled"><%= currentPage %></span>
     <a href="?page=<%= currentPage + 1 %>" class="btn btn-primary">Tiếp theo</a>
