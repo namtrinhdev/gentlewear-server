@@ -8,6 +8,8 @@ exports.getAllUsers = async (req, res, next) => {
     let list = [];
 
     let search = req.query.search || '';
+    const page = parseInt(req.query.page) || 1; // lấy số trang hiện tại
+    const itemsPerPage = 10; // đặt số lượng mục trên mỗi trang
 
     try {
         let searchQuery = {};
@@ -43,7 +45,10 @@ exports.getAllUsers = async (req, res, next) => {
             {
                 $sort: { orderCount: -1 }
             }
-        ]).exec();
+        ])
+        .skip((page - 1) * itemsPerPage) // bỏ qua số lượng mục cần bỏ qua
+        .limit(itemsPerPage) // giới hạn số lượng mục thành itemsPerPage
+        .exec();
 
         if(list.isLocked){
             msg = 'Mở khóa'
@@ -54,13 +59,9 @@ exports.getAllUsers = async (req, res, next) => {
         msg = error.message; 
     } 
 
-    let page = parseInt(req.query.page) || 1;
-    let perPage = 50;
-    let start = (page - 1) * perPage;
-    let end = page * perPage;
-
-    res.render('users/list', { msg: msg, users: list.slice(start, end), page: page, search: search });
+    res.render('users/list', { msg: msg, users: list, page: page, search: search });
 }
+
 
 exports.getUserPage = async (req, res, next) => {
     let msg = '';
@@ -133,28 +134,35 @@ exports.lockUser = async (req, res, next) => {
 
 exports.getPurchaseHistory = async (req, res) => {
     const userId = req.params.id;
-    const transactions = await ThanhToanModel.find({ user: userId }).populate({
-        path: 'cart.products',
-        populate: {
-            path: 'size',
-            model: 'sizeModel',
-            populate: [
-                {
-                    path: 'sizeCode',
-                    model: 'sizeCodeModel'
-                },
-                {
-                    path: 'color',
-                    model: 'colorModel',
-                    populate: {
-                        path: 'colorCode',
-                        model: 'colorCodeModel'
+    const page = parseInt(req.query.page) || 1; // get the current page number
+    const itemsPerPage = 10; // set the number of items per page
+
+    const transactions = await ThanhToanModel.find({ user: userId })
+        .skip((page - 1) * itemsPerPage) // skip the number of items that should be skipped
+        .limit(itemsPerPage) // limit the number of items to itemsPerPage
+        .populate({
+            path: 'cart.products',
+            populate: {
+                path: 'size',
+                model: 'sizeModel',
+                populate: [
+                    {
+                        path: 'sizeCode',
+                        model: 'sizeCodeModel'
+                    },
+                    {
+                        path: 'color',
+                        model: 'colorModel',
+                        populate: {
+                            path: 'colorCode',
+                            model: 'colorCodeModel'
+                        }
                     }
-                }
-            ]
-        }
-    });
-    res.render('users/purchase-history', { transactions: transactions });
+                ]
+            }
+        });
+    res.render('users/purchase-history', { transactions: transactions, currentPage: page });
 };
+
 
 
