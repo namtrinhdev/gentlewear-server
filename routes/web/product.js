@@ -6,9 +6,7 @@ var multer = require('multer');
 var objUpload = multer({dest: './uploads'});
 
 router.get('/', productCtrl.getProductPage);
-router.post('/', productCtrl.getProductPage);
+router.post('/',objUpload.single("image"), productCtrl.getProductPage);
 
-router.get('/add', productCtrl.getAddProductPage);
-router.post('/add', productCtrl.getAddProductPage);
 
 module.exports = router;

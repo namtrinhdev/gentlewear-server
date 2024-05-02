@@ -1,6 +1,5 @@
 <%- include ('../inc/header') %>
 
-
 <div style="display: flex; justify-content: space-around; align-items: center; margin-top: -220px;">
     <div>
         <div style="width: 1000px; height: 1000px; display: flex; justify-content: center; align-items: center;">
@@ -13,14 +12,6 @@
             <canvas id="productTypeRevenueChart"></canvas>
         </div>
     </div>
-<h4 style="margin-left: 40px">Tổng Doanh thu</h4>
-<div style="width: 700px; height: 500px; display: flex; justify-content: space-between; align-items: center; margin-left: 100px;">
-    <canvas id="totalRevenueChart"></canvas>
-</div>
-
-<h4 style="margin-left: 40px">Doanh Thu Theo Loại Sản Phẩm</h4>
-<div style="width: 700px; height: 500px; display: flex; justify-content: space-between; align-items: center; margin-left: 100px;">
-    <canvas id="productTypeRevenueChart"></canvas>
 </div>
 
 <h2 style="margin-left: 20px; margin-top: -150px;">Top 5 Sản phẩm Bán chạy</h2>
@@ -29,10 +20,9 @@
     <table class="table table-striped table-sm" style="flex-basis: 80%;">
       <thead>
         <tr class="table-dark">
-            <th>Ảnh sản phẩm</th>
           <th>Tên sản phẩm</th>
-          <th>Giá sản phẩm</th>
           <th>Số lượng đã bán</th>
+          <th>Giá sản phẩm</th> <!-- Thêm cột Giá sản phẩm -->
         </tr>
       </thead>
       <tbody id="topSellingProductsList"></tbody>
@@ -98,21 +88,18 @@
         tdName.appendChild(document.createTextNode(product.productName));
         var tdQuantity = document.createElement("td");
         tdQuantity.appendChild(document.createTextNode(product.quantitySold));
-        var tdImage = document.createElement("td"); 
-        var img = document.createElement("img");
-        img.src = product.image; 
-        img.style.width = "100px"; 
-        img.style.height = "100px"; 
-        tdImage.appendChild(img);
-        var tdPrice = document.createElement("td"); 
-        tdPrice.appendChild(document.createTextNode(product.price)); 
-        tr.appendChild(tdImage); 
+        var tdImage = document.createElement("td"); // Tạo một ô mới cho ảnh sản phẩm
+        var img = document.createElement("img"); // Tạo một thẻ img mới
+        img.src = product.image; // Đặt src cho thẻ img
+        img.style.width = "50px"; // Đặt chiều rộng cho ảnh
+        img.style.height = "50px"; // Đặt chiều cao cho ảnh
+        tdImage.appendChild(img); // Thêm thẻ img vào ô ảnh sản phẩm
+        var tdPrice = document.createElement("td"); // Tạo một ô mới cho giá sản phẩm
+        tdPrice.appendChild(document.createTextNode(product.price)); // Thêm giá sản phẩm vào ô giá sản phẩm
         tr.appendChild(tdName);
-        tr.appendChild(tdPrice);
         tr.appendChild(tdQuantity);
-
+        tr.appendChild(tdPrice); // Thêm ô giá sản phẩm vào hàng
         topSellingProductsList.appendChild(tr);
     }
 </script>
-
 <%- include ('../inc/footer') %>
