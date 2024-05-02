@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var methodOverride = require('method-override');
 
 //web
 var indexRouter = require('./routes/web/index');
@@ -13,7 +14,8 @@ var sizeCodeRouter = require('./routes/web/sizeCode.router');
 var productTypeRouter = require('./routes/web/productType.router');
 var statisticsRouter = require('./routes/web/statistics');
 var productRouter = require('./routes/web/product');
-var billRouter = require('./routes/web/bill')
+var orderRouter = require('./routes/web/order.router');
+
 //api
 var apiUserRouter = require("./routes/api/users.api");
 var apiProductRouter = require("./routes/api/products.api");
@@ -27,6 +29,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(methodOverride('_method'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -43,7 +46,7 @@ app.use('/sizeCode', sizeCodeRouter);
 app.use('/productType', productTypeRouter);
 app.use('/statistics', statisticsRouter);
 app.use('/products', productRouter);
-app.use('/bills', billRouter);
+app.use('/orders', orderRouter);
 //api
 app.use('/api/users',apiUserRouter);
 app.use('/api/products',apiProductRouter);

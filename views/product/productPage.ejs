@@ -3,17 +3,15 @@
     <div style="display: flex;" class="alert alert-info">
       <div style="display: flex;">
         <h2>Sản phẩm</h2>
-        <form style="margin-left: 150px;width: 500px;">
-          <div class="navbar-form navbar-right">
-            <input type="key" class="form-control" placeholder="Tìm kiếm" name="key">
+        <form method="post" action="" style="margin-left: 150px;width: 500px;">
+          <div style="display: flex;">
+            <div class="navbar-form navbar-right " style="flex-basis: 70%; margin-right: 10px;">
+              <input type="key" class="form-control" placeholder="Tìm kiếm" name="search">
+            </div>
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
           </div>
         </form>
 
-        <a href="/products/add" class="btn btn-primary" style="margin-left: 520px; height: 40px;">Thêm</a>
-
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSizeCodeModal">
-          Thêm sản phẩm
-        </button>
       </div>
     </div>
 
@@ -35,6 +33,26 @@
                     <input type="radio" name="mau">
                     <label>Tất cả</label>
                   </div>
+                  <div>
+                    <input type="radio" name="sp">
+                    <label>Áo phông</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="sp">
+                    <label>Áo sơ mi</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="sp">
+                    <label>Áo khoác</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="sp">
+                    <label>Màu vest</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="sp">
+                    <label>Màu hoodie</label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -52,86 +70,137 @@
                     <input type="radio" name="mau">
                     <label>Tất cả</label>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item" style="margin-top: 30px;border-radius: 10%;">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                  aria-controls="panelsStayOpen-collapseThree" style="background-color: #cff4fc;">
-                  Kích cỡ
-                </button>
-              </h2>
-              <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
-                <div style="margin-left: 20px;">
                   <div>
-                    <input type="radio" name="co">
-                    <label>Tất cả</label>
+                    <input type="radio" name="mau">
+                    <label>Màu đỏ</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="mau">
+                    <label>Màu vàng</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="mau">
+                    <label>Màu xanh</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="mau">
+                    <label>Màu trắng</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="mau">
+                    <label>Màu đen</label>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </aside>
       </div>
 
       <div style="flex-basis: 80%; margin-left: 10px; margin-right: 10px; ">
-        <table class="table table-striped table-sm" style="flex-basis: 80%;">
+        <button type="button" class="btn btn-primary" style="justify-content: right;" data-bs-toggle="modal"
+          data-bs-target="#addProductModal">Thêm sản phẩm</button>
+        <table class="table table-hover" style="flex-basis: 80%; background-color: v; border-collapse: collapse;">
           <thead>
-            <tr class="table-dark">
-              <th style="width: 30%;">Hình ảnh</th>
-              <th style="width: 40%;">Tên sản phẩm</th>
-              <th style="width: 30%;">Giá</th>
+            <tr class="table-row">
+              <th style="width: 10%; border: 2px solid azure; background-color: #cff4fc; ">Mã sản phẩm</th>
+              <th style="width: 30%; border: 2px solid azure; background-color: #cff4fc;">Tên sản phẩm</th>
+              <th style="width: 20%; border: 2px solid azure; background-color: #cff4fc;">Đơn giá</th>
+              <th style="width: 10%; border: 2px solid azure; background-color: #cff4fc;">Tổng SL</th>
+              <th style="width: 10%;border: 2px solid azure; background-color: #cff4fc;">SL đã bán</th>
+              <th style="width: 10%;border: 2px solid azure; background-color: #cff4fc;">Tình trạng</th>
+              <th style="width: 20%;border: 2px solid azure; background-color: #cff4fc;">Ảnh SP</th>
             </tr>
           </thead>
           <tbody>
             <% list.forEach((item)=> { %>
-              <tr class="accordion-toggle">
-                <td><img src="" alt="" class="img-thumbnail img-sm" style="height: 80px;max-width: 80%;"></td>
-                <td>
+              <tr class="accordion-toggle" style="height: 50px; ">
+                <td class="align-middle" style="border: 2px solid azure; ">
+                  <%= item._id %>
+                </td>
+                <td class="align-middle" style="border:2px solid azure;">
                   <%= item.productName %>
                 </td>
-                <td>
+                <td class="align-middle" style="border: 2px solid azure;">
                   <%= item.price %>
                 </td>
+                <td class="align-middle" style="border: 2px solid azure;">
+                  <%= item.quantity %>
+                </td>
+                <td class="align-middle" style="border: 2px solid azure;">
+                  <%= item.quantitySold %>
+                </td>
+                <td class="align-middle" style="border: 2px solid azure;">
+                  <% if(item.isStopSelling) { %>
+                    Đã ngừng bán
+                    <% } else { %>
+                      Đang bán
+                      <% } %>
+                </td>
+                <td style="border: 2px solid azure;"><img src="" alt="" class="img-thumbnail img-sm"
+                    style="height: 80px;max-width: 80%;"></td>
               </tr>
               <tr class="accordion-body" style="display: none;">
-                <td colspan="4">
-                  <div style="display: flex;background-color: #cff4fc;border-radius: 10px;">
-                    <div style="padding: 20px;">
-                      <img src="" class="img-thumbnail img-sm" style="height: 250px;max-width: 80%;">
-                    </div>
-                    <div>
-                      <div>
-                        <div style="max-width: 300px"><b>Tên sản phẩm: </b></div>
-                        <label>
-                          <%= item.productName %>
-                        </label>
-                        <div style="max-width: 300px"><b>Giá: </b></div>
-                        <label>
-                          <%= item.price %>
-                        </label>
-                        <div style="max-width: 300px"><b>Màu: </b></div>
-                        <div style="width: 30px;height: 30px;background-color: <%= item.size[0].color[0].colorCode.colorCode %>"></div>
-                        <div style="max-width: 300px"><b>Kích cỡ: </b></div>
-                        <label><%item.size.forEach((it) => {%>
-                          <%= it.sizeCode.sizeCode %>
-                          <%})%>
-                        </label>
-                        <div style="max-width: 300px"><b>Mô tả: </b></div>
-                        <label style="max-height: 10px;">
-                          <%= item.mota %>
-                        </label>
-                        <div style="max-width: 300px"><b>Tình trạng: </b></div>
-                        <label></label>
-                        <div style="margin-top: 20px;">
-                          <a href="" class="btn btn-info">Cập nhật</a>
-                          <a href="" class="btn btn-danger" style="margin-left: 20px;">Ngưng bán</a>
+                <td colspan="8">
+                  <div style="display: flex;background-color: #cff4fc;border-radius: 10px; padding: 10px;">
+                    <div style="flex-basis: 70%;">
+                      <!--loai sp-->
+                      <div style="display: flex;vertical-align: middle;">
+                        <div style=" flex-basis: 20%;">
+                          <p class="fw-medium">Loại sản phẩm : </p>
                         </div>
-
+                        <select class="form-select" name="productTypE" style=" flex-basis: 30%;"
+                          aria-label="Size 3 select example">
+                          <option disabled selected>Chọn loại sản phẩm</option>
+                          <% listPT.forEach( (row)=> { %>
+                            <option <% if (row.tenLoai ===item.productType.tenLoai) { %> selected <% } %>
+                                name="theLoaiEdit">
+                                <%= row.tenLoai %>
+                            </option>
+                            <% }); %>
+                        </select>
                       </div>
+                      <!-- size -->
+                      <div style="max-width: 300px"><b>Kích cỡ: </b></div>
+                      <div style="display: flex;">
+                        <%item.size.forEach((it)=> {%>
+                          <form method="post" style="display: inline;">
+                            <input type="hidden" name="sizeId" value="<%= it._id %>">
+                            <button type="submit" class="btn btn-primary" data-bs-toggle="modals"
+                              data-bs-target="#editProductModal"
+                              style="width: 50px;height: 50px;background-color: gray; border-radius: 5px; vertical-align: bottom; ; margin-right: 10px;">
+                              <%= it.sizeCode.sizeCode %>
+                            </button>
+                          </form>
+                          <%})%>
+                      </div>
+                      <!-- color-->
+                      <div style="max-width: 300px"><b>Màu: </b></div>
+                      <div style="display: flex;">
+                        <%item.size.forEach((it)=> {%>
+                          <%it.color.forEach((cl)=> {%>
+                            <div
+                              style="width: 30px;height: 30px; border-radius: 5px; vertical-align: middle; text-align: center; margin-right: 10px ; background-color: <%= cl.colorCode.colorCode %> ; ">
+
+                            </div>
+                            <%})%>
+                              <%})%>
+                      </div>
+                      <!--mota-->
+                      <div style="max-width: 300px"><b>Mô tả: </b></div>
+                      <textarea class="form-control " name="mota" placeholder="Mota"
+                        style="max-height: 300px; min-height: 200px;"><%= item.mota %></textarea>
+
+                      <div style="margin-top: 20px;">
+                        <a href="" class="btn btn-info">Cập nhật</a>
+                        <a href="" class="btn btn-danger" style="margin-left: 20px;">Ngưng bán</a>
+                      </div>
+
+
+                    </div>
+                    <div style="flex-basis: 30%;">
+                      <img src="" class="img-responsive" alt="" style="width: auto; height: 100px;" />
                     </div>
                   </div>
                 </td>
@@ -142,24 +211,143 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="addSizeCodeModal" tabindex="-1" aria-labelledby="addSizeCodeModalLabel"
+  <!--modal add sp-->
+  <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProductModalLabel">Thêm sản phẩm</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!--body-->
+          <form action="" method="post" enctype="multipart/form-data">
+            <!--name-->
+            <div style="display: flex;">
+              <label style="flex-basis: 30%;" class="form-label">Tên sản phẩm</label>
+              <input id="txtProductName" class="form-control" name="productName" type="text">
+            </div>
+            <!--price-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Giá sản phẩm</label>
+              <input id="txtPrice" class="form-control" name="price" type="number">
+            </div>
+            <!--productType-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Loại sản phẩm</label>
+              <select class="form-control" name="productType" aria-label="Size 3 select example">
+                <option disabled selected>Chọn loại sản phẩm</option>
+                <% listPT.forEach( (row)=> { %>
+                  <option name="theLoai">
+                    <%= row.tenLoai %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+            <!--mota-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Mô tả</label>
+              <textarea class="form-control " name="mota" placeholder="Mô tả sản phẩm"
+                style=" min-height: 100px;"></textarea>
+            </div>
+            <!--sizecode-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Chọn size</label>
+              <select class="form-control" name="sizeCode" aria-label="Size 3 select example">
+                <option disabled selected>Chọn Size</option>
+                <% listSize.forEach( (row)=> { %>
+                  <option name="sizeCode">
+                    <%= row.sizeCode %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+            <hr />
+            <!--colorcode-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Chọn màu</label>
+              <select class="form-control" name="colorCode" aria-label="Size 3 select example">
+                <option disabled selected>Chọn màu sắc</option>
+                <% listColor.forEach( (row)=> { %>
+                  <option name="colorCode" style="background-color: <%= row.colorCode %>;">
+                    <%= row.colorCode %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+            <!--số lượng-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Số lượng sản phẩm</label>
+              <input id="txtQuantity" class="form-control" name="quantity" type="number">
+            </div>
+            <!--chọn ảnh-->
+            <div style="display: flex;margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Ảnh sản phẩm</label>
+              <input id="imgProduct" placeholder="Chọn 1 ảnh sản phẩm" class="form-control" name="image" type="file">
+            </div>
+            <button type="submit"
+              class="btn btn-primary my-auto position-relative start-50 translate-middle mt-5">Thêm</button>
+          </form>
+
+          <!------------->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal edit sp-->
+  <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addSizeCodeModalLabel">Thêm sản phẩm</h5>
+          <h5 class="modal-title" id="editProductModalLabel">Sửa sản phẩm</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="" method="post">
-            <label for="sizeCode" class="form-label">Mã Kích Cỡ:</label>
-            <input id="txtSizeCode" class="form-control" name="sizeCode" type="text">
-            <label for="exampleInputEmail1" class="form-label fs-6 text-danger">
-
-            </label><br />
+          <!--body-->
+          <form action="" method="post" enctype="multipart/form-data">
+            <!--sizecode-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Chọn size</label>
+              <select class="form-control" name="sizeCode" aria-label="Size 3 select example">
+                <option disabled selected>Chọn Size</option>
+                <% listSize.forEach( (row)=> { %>
+                  <option 
+                      name="sizeCodeEdit">
+                      <%= row.sizeCode %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+            <hr />
+            <!--colorcode-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Chọn màu</label>
+              <select class="form-control" name="colorCode" aria-label="Size 3 select example">
+                <option disabled selected>Chọn màu sắc</option>
+                <% listColor.forEach( (row)=> { %>
+                  <option name="colorCode" style="background-color: <%= row.colorCode %>;">
+                    <%= row.colorCode %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+            <!--số lượng-->
+            <div style="display: flex; margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Số lượng sản phẩm</label>
+              <input id="txtQuantity" class="form-control" name="quantity" type="number">
+            </div>
+            <!--chọn ảnh-->
+            <div style="display: flex;margin-top: 10px;">
+              <label style="flex-basis: 30%;" class="form-label">Ảnh sản phẩm</label>
+              <input id="imgProduct" placeholder="Chọn 1 ảnh sản phẩm" class="form-control" name="image" type="file">
+            </div>
             <button type="submit"
-              class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Thêm</button>
+              class="btn btn-primary my-auto position-relative start-50 translate-middle mt-5">Lưu</button>
           </form>
+
+          <!------------->
         </div>
       </div>
     </div>

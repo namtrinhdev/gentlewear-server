@@ -1,4 +1,5 @@
 var mdUser = require('../../models/user.model');
+var md = require('../../models/thanhtoan.model');
 
 //1 get ds chờ xác nhận
 exports.getWaitConfirmByIdUser = async (req, res) => {

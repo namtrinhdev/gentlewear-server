@@ -8,7 +8,8 @@ let productSchema = new Schema(
         productType: { type: Schema.Types.ObjectId, ref: 'productTypeModel', required: true },
         size: [{ type: Schema.Types.ObjectId, ref:'sizeModel', required: true }],
         quantitySold: { type: Number, required: true },
-        mota:{ type: String,required: true}
+        mota:{ type: String,required: true},
+        isStopSelling: { type: Boolean, required: true} //0 true, 1 false
     },
     {
         collection: 'products',
