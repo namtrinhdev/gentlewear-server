@@ -4,7 +4,7 @@
     switch(status) {
         case 0: return 'Đã hủy';
         case 1: return 'Chờ xác nhận';
-        case 2: return 'Chờ lấy hàng';
+        case 2: return 'Đã Xác Nhận';
         case 3: return 'Đang giao';
         case 4: return 'Đã giao';
         default: return 'Không xác định';
@@ -167,7 +167,7 @@
                                                     <select id="trangThai" class="form-control" name="trangThai">
                                                         <option value="0" <%= transaction.trangThai == 0 ? 'selected' : '' %>>Đã hủy</option>
                                                         <option value="1" <%= transaction.trangThai == 1 ? 'selected' : '' %>>Chờ xác nhận</option>
-                                                        <option value="2" <%= transaction.trangThai == 2 ? 'selected' : '' %>>Chờ lấy hàng</option>
+                                                        <option value="2" <%= transaction.trangThai == 2 ? 'selected' : '' %>>Đã Xác Nhận</option>
                                                         <option value="3" <%= transaction.trangThai == 3 ? 'selected' : '' %>>Đang giao</option>
                                                         <option value="4" <%= transaction.trangThai == 4 ? 'selected' : '' %>>Đã giao</option>
                                                     </select>
