@@ -44,3 +44,19 @@ exports.getOrderManagementPage = async (req, res) => {
         });
     res.render('oder/order-management', { transactions: transactions, currentPage: page });
 };
+
+exports.updateOrderStatus = async (req, res) => {
+    const { id, trangThai } = req.body; // lấy id và trangThai từ request body
+
+    try {
+        // tìm và cập nhật trangThai của đơn hàng
+        await ThanhToanModel.findByIdAndUpdate(id, { trangThai: trangThai });
+
+        // chuyển hướng người dùng về trang /orders
+        res.redirect('/orders');
+    } catch (error) {
+        // gửi phản hồi lỗi
+        res.json({ success: false, message: 'Có lỗi xảy ra: ' + error.message });
+    }
+};
+

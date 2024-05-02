@@ -146,8 +146,36 @@
                                         </div>
                                     </div>
                                     <div style="padding: 20px;">
-                                        <a href="" class="btn btn-info">Cập nhật</a>
-                                        <a href="" class="btn btn-danger" style="margin-left: 20px;">Hủy hóa đơn</a>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStatusModal-<%= transaction._id %>">
+                                            Cập nhật trạng thái
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="updateStatusModal-<%= transaction._id %>" tabindex="-1" aria-labelledby="updateStatusModalLabel-<%= transaction._id %>"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="updateStatusModalLabel-<%= transaction._id %>">Cập nhật trạng thái</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/orders/update-status" method="post">
+                                                    <input type="hidden" name="id" value="<%= transaction._id %>">
+                                                    <label for="trangThai" class="form-label">Trạng thái:</label>
+                                                    <select id="trangThai" class="form-control" name="trangThai">
+                                                        <option value="0" <%= transaction.trangThai == 0 ? 'selected' : '' %>>Đã hủy</option>
+                                                        <option value="1" <%= transaction.trangThai == 1 ? 'selected' : '' %>>Chờ xác nhận</option>
+                                                        <option value="2" <%= transaction.trangThai == 2 ? 'selected' : '' %>>Chờ lấy hàng</option>
+                                                        <option value="3" <%= transaction.trangThai == 3 ? 'selected' : '' %>>Đang giao</option>
+                                                        <option value="4" <%= transaction.trangThai == 4 ? 'selected' : '' %>>Đã giao</option>
+                                                    </select>
+                                                    <button type="submit"
+                                                        class="btn btn-primary my-auto position-relative start-50 translate-middle mt-3">Cập nhật</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
