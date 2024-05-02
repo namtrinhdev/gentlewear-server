@@ -23,7 +23,6 @@ exports.getProductTypePage = async (req, res, next) => {
                     obj.tenLoai = req.body.tenLoai;
                     await obj.save();
                     msg = 'Thêm loại sản phẩm thành công';
-                    res.redirect("/productType");
                 } catch (error) {
                     msg = "loi : " + error.message;
                     console.log(msg);

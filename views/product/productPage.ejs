@@ -154,11 +154,11 @@
                           aria-label="Size 3 select example">
                           <option disabled selected>Chọn loại sản phẩm</option>
                           <% listPT.forEach( (row)=> { %>
-                            <option <% if (row.tenLoai===item.productType.tenLoai) { %> selected <% } %>
+                            <option <% if (row.tenLoai ===item.productType.tenLoai) { %> selected <% } %>
                                 name="theLoaiEdit">
                                 <%= row.tenLoai %>
-                            </option> -->
-                             <% }); %> 
+                            </option>
+                            <% }); %>
                         </select>
                       </div>
                       <!-- size -->
