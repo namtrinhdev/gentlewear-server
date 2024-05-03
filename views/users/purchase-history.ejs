@@ -20,7 +20,7 @@
         <% transactions.forEach(transaction => { %>
           <% transaction.cart.forEach(item => { %>
             <tr>
-              <td><img src="<%= item.products.image %>" alt="Ảnh sản phẩm" width="50" height="50"></td>
+              <td><img src="uploads/<%= item.products.size[0].color[0].image %>" alt="Ảnh sản phẩm" width="50" height="50"></td>
               <td><%= item.products.productName %></td>
               <td><%= item.soLuong %></td>
               <td>
